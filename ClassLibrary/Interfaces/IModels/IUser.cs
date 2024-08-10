@@ -12,11 +12,10 @@ namespace ClassLibrary.Interfaces.IModels
     public interface IUser
     {
         int Id { get; }
-        static int NextId { get; }
         string Name { get; }
         string UserName { get; }
         string Password { get; }
-        EnumUserType UserType { get; }
+        
     }
 
     #endregion
