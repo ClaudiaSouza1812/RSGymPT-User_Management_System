@@ -1,4 +1,5 @@
-﻿using ClassLibrary.Interfaces.IRepositories;
+﻿using ClassLibrary.Interfaces.IMethods;
+using ClassLibrary.Interfaces.IRepositories;
 using ClassLibrary.Interfaces.IServices;
 using ClassLibrary.Models;
 using ClassLibrary.Utility;
@@ -14,10 +15,12 @@ namespace ClassLibrary.Services
     {
 
         private readonly IUserRepository _userRepository;
+        private readonly IEncryptPassword _encryptPassword;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IEncryptPassword encryptPassword)
         {
             _userRepository = userRepository;
+            _encryptPassword = encryptPassword;
         }
 
         public string AskUserName()
@@ -89,7 +92,7 @@ namespace ClassLibrary.Services
 
             string password = AskUserPassword();
 
-            User user = ValidateUser(userName, UserUtility.EncryptPassword(password));
+            User user = ValidateUser(userName, _encryptPassword.EncryptPassword(password));
 
             if (user == null)
             {

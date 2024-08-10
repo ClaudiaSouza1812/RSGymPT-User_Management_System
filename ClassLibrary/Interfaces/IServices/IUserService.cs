@@ -15,7 +15,7 @@ namespace ClassLibrary.Interfaces.IServices
         string AskUserName();
         string AskUserPassword();
         User ValidateUser(string userName, string password);
-        User LogInUser(string userName, string password);
+        User LogInUser();
         List<User> CreateDefaultUsers();
 
         #endregion
