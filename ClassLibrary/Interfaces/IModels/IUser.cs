@@ -12,9 +12,8 @@ namespace ClassLibrary.Interfaces.IModels
     public interface IUser
     {
         int Id { get; }
-        int NextId { get; }
+        static int NextId { get; }
         string Name { get; }
-        string LastName { get; }
         string UserName { get; }
         string Password { get; }
         EnumUserType UserType { get; }

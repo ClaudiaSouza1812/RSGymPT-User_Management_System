@@ -22,11 +22,7 @@ namespace ClassLibrary.Interfaces.IServices
 
 
 
-        // repository
-        bool CheckUserName(string userName);
         
-        void ListUser(string userName);
-        void AddUser(User user);
 
 
     }
