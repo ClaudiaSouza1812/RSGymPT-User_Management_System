@@ -9,17 +9,14 @@ using System.Xml.Linq;
 
 namespace ClassLibrary.Models
 {
-    internal class PowerUser : User, IPowerUser
+    internal class PowerUser : User
     {
-        public EnumUserType UserType { get; set; }
-
-        internal override string FullUser => $"{base.FullUser}\n(Usuário): {UserType}";
+        public override EnumUserType UserType { get; set; }
 
         public PowerUser() : base() { }
 
-        public PowerUser(string name, string userName, string password, EnumUserType userType) : base(name, userName, password)
+        public PowerUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserType userType) : base(name, lastName, nif, email, userName, password, userType)
         {
-            UserType = userType;
         }
     }
 }

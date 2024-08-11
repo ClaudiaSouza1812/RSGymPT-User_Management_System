@@ -12,7 +12,7 @@ namespace ClassLibrary.Interfaces.IRepositories
         #region Methods and Functions
 
         bool CheckUserName(string userName);
-        
+        List<User> GetAllUsers();
         
 
         #endregion

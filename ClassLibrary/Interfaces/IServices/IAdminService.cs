@@ -9,7 +9,7 @@ namespace ClassLibrary.Interfaces.IServices
 {
     internal interface IAdminService
     {
-        User CreateUser(User user);
+        User CreateUser();
         void DefineUserType(User user);
         void ListUsersByName(string name);
         void ListUserById(int id);

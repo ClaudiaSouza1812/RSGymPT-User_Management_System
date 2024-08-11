@@ -13,11 +13,13 @@ namespace ClassLibrary.Interfaces.IModels
     {
         int Id { get; }
         string Name { get; }
+        string LastName { get; }
         string NIF { get; }
         string Email { get; }
         string UserName { get; }
         string Password { get; }
-        
+        EnumUserType UserType { get; }
+
     }
 
     #endregion

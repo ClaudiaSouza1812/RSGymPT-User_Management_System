@@ -8,17 +8,13 @@ using ClassLibrary.Enums;
 
 namespace ClassLibrary.Models
 {
-    internal class SimpleUser : User, ISimpleUser
+    internal class SimpleUser : User
     {
-        public EnumUserType UserType { get; set; }
-
-        internal override string FullUser => $"{base.FullUser}\n(Usuário): {UserType}";
 
         public SimpleUser() : base() { }
 
-        public SimpleUser(string name, string userName, string password, EnumUserType userType) : base(name, userName, password) 
+        public SimpleUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserType userType) : base(name, lastName, nif, email, userName, password, userType) 
         { 
-            UserType = userType;
         }
     }
 }

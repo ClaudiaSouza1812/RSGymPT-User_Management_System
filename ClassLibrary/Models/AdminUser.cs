@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Models
 {
-    internal class AdminUser : User, IAdminUser
+    internal class AdminUser : User
     {
-        public EnumUserType UserType { get; } = EnumUserType.Admin;
+        public override EnumUserType UserType { get; set; }
 
-        internal override string FullUser => $"{base.FullUser}\n(Usuário): {UserType}";
+        public AdminUser() : base() { }
 
-        public AdminUser() : base(){ }
-
-        public AdminUser(string name, string userName, string password) : base(name, userName, password){ }
+        public AdminUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserType userType) : base(name, lastName, nif, email, userName, password, userType)
+        {
+        }
     }
 }

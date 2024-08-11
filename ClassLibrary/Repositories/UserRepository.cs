@@ -20,6 +20,7 @@ namespace ClassLibrary.Repositories
             return _users.Any(u => u.UserName == userName);
         }
 
+        
         public void ListUser(string name)
         {
             Console.Clear();
@@ -28,9 +29,9 @@ namespace ClassLibrary.Repositories
 
             
 
-            if (users.Any())
+            if (_users.Any())
             {
-                foreach (var user in users)
+                foreach (var user in _users)
                 {
                     RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
                 }
@@ -43,5 +44,13 @@ namespace ClassLibrary.Repositories
             
             RSGymUtility.PauseConsole();
         }
+
+        public List<User> GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
     }
 }
