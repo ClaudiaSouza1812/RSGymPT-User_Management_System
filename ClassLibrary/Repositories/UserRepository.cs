@@ -13,32 +13,34 @@ namespace ClassLibrary.Repositories
     {
         private readonly List<User> _users;
 
-        public void AddUser(User user)
-        {
-            _users.Add(user);
-        }
+       
 
         public bool CheckUserName(string userName)
         {
             return _users.Any(u => u.UserName == userName);
         }
 
-        public List<User> GetAllUsers()
-        {
-            return _users;
-        }
-
-        public void ListUser(string userName)
+        public void ListUser(string name)
         {
             Console.Clear();
 
             RSGymUtility.WriteTitle("Lista de Utilizadores", "\n", "\n\n");
-            RSGymUtility.WriteMessage($"{userName}, Utilizadores cadastrados: ", "", "\n\n");
 
-            foreach (User user in _users)
+            
+
+            if (users.Any())
             {
-                RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
+                foreach (var user in users)
+                {
+                    RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
+                }
             }
+            else
+            {
+                RSGymUtility.WriteMessage($"Nenhum utilizador '{name}' encontrado.");
+            }
+
+            
             RSGymUtility.PauseConsole();
         }
     }

@@ -11,7 +11,7 @@ namespace ClassLibrary.Interfaces.IServices
     {
         #region Methods and Functions
 
-        User CreateUser(User user);
+        
         string AskUserName();
         string AskUserPassword();
         User ValidateUser(string userName, string password);
@@ -19,10 +19,6 @@ namespace ClassLibrary.Interfaces.IServices
         List<User> CreateDefaultUsers();
 
         #endregion
-
-
-
-        
 
 
     }

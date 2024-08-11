@@ -63,9 +63,9 @@ namespace ClassLibrary.Services
         {
             List<User> defaultUsers = new List<User>()
             {
-                new User("Mel Souza Magalhães", "melmag", "123456", Enums.EnumUserType.Admin),
-                new User("Paula Magalhães", "paumag", "123456", Enums.EnumUserType.PowerUser),
-                new User("Claudia Souza", "clasou", "123456", Enums.EnumUserType.SimpleUser),
+                new AdminUser("Mel Souza Magalhães", "melmag", "123456"),
+                new PowerUser("Paula Magalhães", "paumag", "123456"),
+                new SimpleUser("Claudia Souza", "clasou", "123456"),
             };
 
             return defaultUsers;

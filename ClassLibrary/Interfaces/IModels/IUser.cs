@@ -13,6 +13,8 @@ namespace ClassLibrary.Interfaces.IModels
     {
         int Id { get; }
         string Name { get; }
+        string NIF { get; }
+        string Email { get; }
         string UserName { get; }
         string Password { get; }
         

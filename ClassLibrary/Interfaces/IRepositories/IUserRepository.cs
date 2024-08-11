@@ -12,9 +12,8 @@ namespace ClassLibrary.Interfaces.IRepositories
         #region Methods and Functions
 
         bool CheckUserName(string userName);
-        void ListUser(string userName);
-        void AddUser(User user);
-        List<User> GetAllUsers();
+        
+        
 
         #endregion
     }
