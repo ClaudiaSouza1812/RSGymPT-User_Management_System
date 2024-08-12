@@ -8,22 +8,24 @@ using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     internal class AdminService : IAdminService
     {
-
-        public User _user;
-
-        public User CreateUser(User user)
+        
+        public User CreateUser()
         {
+            User user = new User();
+
             (user.Name, user.LastName) = DefineFullName();
 
             if (string.IsNullOrEmpty(user.Name))
             {
                 return null;
             }
+            
 
             user.NIF = DefineNif();
 
@@ -76,7 +78,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
-                RSGymUtility.WriteTitle($"RSGymPT Menu de navegação - {_user.UserType}", "", "\n\n");
+                RSGymUtility.WriteTitle($"RSGymPT Menu de navegação", "", "\n\n");
 
                 RSGymUtility.WriteMessage("Insira o nome do utilizador: ", "", "\n");
 
@@ -192,13 +194,13 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
-                RSGymUtility.WriteMessage("Defina o username com 6 caracteres e sem espaços.", "\n");
+                RSGymUtility.WriteMessage("Defina o username com 6 caracteres e sem espaços.", "\n", "\n");
 
                 RSGymUtility.WriteMessage("Username: ", "", "\n");
 
                 userName = Console.ReadLine().ToLower();
 
-                RSGymUtility.WriteMessage("Defina a password com 6 caracteres e sem espaços.", "\n");
+                RSGymUtility.WriteMessage("Defina a password com 6 caracteres e sem espaços.", "\n", "\n");
 
                 RSGymUtility.WriteMessage("Password: ", "", "\n");
 
@@ -209,7 +211,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 {
                     RSGymUtility.WriteMessage("Digite um username válido.", "\n");
                 }
-                else if (CheckPassword(password))
+                else if (!CheckPassword(password))
                 {
                     RSGymUtility.WriteMessage("Digite uma password válida.", "\n");
                 }

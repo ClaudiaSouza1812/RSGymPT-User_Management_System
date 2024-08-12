@@ -29,6 +29,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
             
             IUserService userService = new UserService(userRepository, adminRepository, encryptPassword);
             userService.CreateDefaultUsers();
+
             IAdminService adminService = new AdminService();
 
             IAppService appService = new AppService(userService, adminService, adminRepository);

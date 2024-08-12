@@ -14,24 +14,24 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     internal class AppService : IAppService
     {
-        public User _user;
+        private User _currentUser;
+
         public readonly IUserService _userService;
         public readonly IAdminService _adminService;
         public readonly IAdminRepository _adminRepository;
         
 
         public AppService(IUserService userService, IAdminService adminService, IAdminRepository adminRepository)
-        { 
+        {
             _userService = userService;
             _adminService = adminService;
             _adminRepository = adminRepository;
         }
 
-
         public void RunMainMenu()
         {
             
-            switch (_user.UserType)
+            switch (_currentUser.UserType)
             {
                 case EnumUserType.Admin:
                     RunAdminMainMenu();
@@ -66,7 +66,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                
 
             // Show the RSGymPT logo
-            ShowLogo("end", _user.Name);
+            ShowLogo("end", _currentUser.Name);
 
             RunLoginMenu();
         }
@@ -77,7 +77,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             switch (menuAction)
             {
                 case "Registar":
-                    User user = _adminService.CreateUser(_user);
+                    User user = _adminService.CreateUser();
                     if (user != null)
                     {
                         _adminRepository.AddUser(user);
@@ -137,15 +137,15 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 if (loginAction == "Login")
                 {
-                    _user = _userService.LogInUser();
+                    _currentUser = _userService.LogInUser();
                 }
 
-            } while (loginAction != "Sair" && _user == null);
+            } while (loginAction != "Sair" && _currentUser == null);
 
-            if (_user != null)
+            if (_currentUser != null)
             {
                 // Show the RSGymPT logo
-                ShowLogo("begin", _user.Name);
+                ShowLogo("begin", _currentUser.Name);
 
                 // Run the main menu
                 RunMainMenu();
@@ -197,7 +197,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         {
             Console.Clear();
 
-            RSGymUtility.WriteTitle($"RSGymPT Menu de navegação - {_user.UserType}", "", "\n\n");
+            RSGymUtility.WriteTitle($"RSGymPT Menu de navegação - {_currentUser.UserType}", "", "\n\n");
             RSGymUtility.WriteMessage("Digite o número da \nopção desejada e aperte 'Enter'", "", "\n\n");
 
             Dictionary<int, string> mainMenu = new Dictionary<int, string>()

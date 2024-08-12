@@ -10,7 +10,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
 {
     internal interface IAdminService
     {
-        User CreateUser(User user);
+        User CreateUser();
         void DefineUserType(User user);
         (string, string) DefineFullName();
         bool CheckFullName(string name, string lastName);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
 {
     internal interface IAppService
     {
+
         void RunRSGymProgram();
         void RunLoginMenu();
         Dictionary<string, string> ShowLoginMenu();
