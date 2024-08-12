@@ -43,20 +43,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\EnumUserType.cs" />
+    <Compile Include="Interfaces\IMethods\IEncryptPassword.cs" />
+    <Compile Include="Interfaces\IModels\IAdminUser.cs" />
+    <Compile Include="Interfaces\IModels\IPowerUser.cs" />
+    <Compile Include="Interfaces\IModels\ISimpleUser.cs" />
+    <Compile Include="Interfaces\IModels\IUser.cs" />
+    <Compile Include="Interfaces\IRepositories\IAdminRepository.cs" />
+    <Compile Include="Interfaces\IRepositories\IUserRepository.cs" />
+    <Compile Include="Interfaces\IServices\IAdminService.cs" />
+    <Compile Include="Interfaces\IServices\IAppService.cs" />
+    <Compile Include="Interfaces\IServices\IUserService.cs" />
+    <Compile Include="Methods\EncryptPassword.cs" />
+    <Compile Include="Models\AdminUser.cs" />
+    <Compile Include="Models\PowerUser.cs" />
+    <Compile Include="Models\SimpleUser.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdminRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\AppService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Utility\RSGymUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="ClassLibrary\ClassLibrary.csproj">
-      <Project>{7f9a02ba-cd66-49a9-81f3-811d09476ccf}</Project>
-      <Name>ClassLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
