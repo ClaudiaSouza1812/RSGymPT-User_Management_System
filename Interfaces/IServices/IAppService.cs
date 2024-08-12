@@ -11,14 +11,14 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         void RunRSGymProgram();
         void RunLoginMenu();
         Dictionary<string, string> ShowLoginMenu();
-        int GetUserChoice(string chosenMenu, string userName);
+        int GetUserChoice(string chosenMenu);
         string ValidateLoginMenu(Dictionary<string, string> loginMenu, int key);
         void ShowLogo(string status, string userName);
-        void ShowMenu(string menu, string userName);
-        Dictionary<string, Dictionary<string, string>> ShowMainMenu(string userName);
+        void ShowMenu(string menu);
         void ShowLogoMessage(string status, string userName);
         void RunAdminMainMenu();
-        void ShowAdminMainMenu();
+        Dictionary<int, string> ShowAdminMainMenu();
+        void RunAdminSubmenu(string menuAction);
 
         // main menus
         void RunMainMenu();

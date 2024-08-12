@@ -4,6 +4,7 @@ using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,10 +13,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     internal class AdminService : IAdminService
     {
-        public User CreateUser()
-        {
-            User user = new User();
 
+        public User _user;
+
+        public User CreateUser(User user)
+        {
             (user.Name, user.LastName) = DefineFullName();
 
             if (string.IsNullOrEmpty(user.Name))
@@ -67,12 +69,14 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             throw new NotImplementedException();
         }
 
-        internal (string, string) DefineFullName()
+        public (string, string) DefineFullName()
         {
             string name, lastName;
             do
             {
                 Console.Clear();
+
+                RSGymUtility.WriteTitle($"RSGymPT Menu de navegação - {_user.UserType}", "", "\n\n");
 
                 RSGymUtility.WriteMessage("Insira o nome do utilizador: ", "", "\n");
 
@@ -96,7 +100,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return (string.Empty, string.Empty);
         }
 
-        internal bool CheckFullName(string name, string lastName)
+        public bool CheckFullName(string name, string lastName)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(lastName))
             {
@@ -110,7 +114,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         }
 
         
-        internal string DefineNif()
+        public string DefineNif()
         {
             string nif;
             do
@@ -138,7 +142,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return string.Empty;
         }
 
-        internal string DefineEmail()
+        public string DefineEmail()
         {
             string email;
             do
@@ -165,7 +169,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return string.Empty;
         }
 
-        internal bool CheckEmail(string email)
+        public bool CheckEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -181,7 +185,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return true;
         }
 
-        internal (string, string) DefineFullAccess()
+        public (string, string) DefineFullAccess()
         {
             string userName, password;
             do
@@ -219,7 +223,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return (string.Empty, string.Empty);
         }
 
-        bool CheckUserName(string userName)
+        public bool CheckUserName(string userName)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrWhiteSpace(userName) || userName.Length != 6)
             {
@@ -228,7 +232,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return true;
         }
 
-        bool CheckPassword(string password)
+        public bool CheckPassword(string password)
         {
             if (string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password) || password.Length != 6)
             {
@@ -238,7 +242,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         }
 
         // Function to ask and return the user choice
-        internal static bool KeepGoing()
+        public bool KeepGoing()
         {
             RSGymUtility.WriteMessage("Continuar? (s/n): ", "\n");
 
