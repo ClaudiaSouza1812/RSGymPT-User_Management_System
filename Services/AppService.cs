@@ -15,6 +15,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
     internal class AppService : IAppService
     {
         private User _currentUser;
+        private User user;
 
         public readonly IUserService _userService;
         public readonly IAdminService _adminService;
@@ -77,20 +78,17 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             switch (menuAction)
             {
                 case "Registar":
-                    User user = _adminService.CreateUser();
+                    user = _adminService.CreateUser();
                     if (user != null)
                     {
                         _adminRepository.AddUser(user);
                     }
-                    
                     break;
-                    /*
                 case "Alterar":
-                    RunOrderSubmenuChange();
+                    _adminService.ChangeUser();
                     break;
-                case "Eliminar":
-                    RunOrderSubmenuDelete();
-                    break;
+                
+                /*
                 case "Listar":
                     RunOrderSubmenuDelete();
                     _adminService.KeepGoing();
@@ -98,7 +96,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 case "Terminar":
                     RunOrderSubmenuFinish();
                     break;
-                    */
+                */
+                    
             }
         }
 
@@ -203,10 +202,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             Dictionary<int, string> mainMenu = new Dictionary<int, string>()
             {   
                 {1, "Registar" },
-                {2, "Alterar" },
-                {3, "Pesquisar" },
-                {4, "Listar" },
-                {5, "Terminar" }
+                {2, "Definir Perfil" },
+                {3, "Alterar" },
+                {4, "Pesquisar" },
+                {5, "Listar" },
+                {6, "Terminar" }
             };
 
             foreach (KeyValuePair<int, string> menu in mainMenu)

@@ -9,11 +9,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     internal class AdminService : IAdminService
     {
+        public readonly AdminRepository _adminRepository;
+
+        public AdminService(AdminRepository adminRepository)
+        { 
+            _adminRepository = adminRepository;
+        }
         
         public User CreateUser()
         {
@@ -51,14 +58,32 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return user;
         }
 
-        public void DefineUserType(User user)
+        public void ChangeUser()
         {
-            throw new NotImplementedException();
+            RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+
+            ListAllUsers();
+
+            string userId = AskUserId();
+
+
+        }
+
+        // Personal trainer helper function to ask and return the PT code
+        internal static string AskUserId()
+        {
+            RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n\n", "");
+            string userId = Console.ReadLine().ToUpper();
+
+            return userId;
         }
 
         public void ListAllUsers()
         {
-            throw new NotImplementedException();
+            foreach (var user in _adminRepository.GetAllUsers())
+            {
+                RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
+            }
         }
 
         public void ListUserById(int id)
