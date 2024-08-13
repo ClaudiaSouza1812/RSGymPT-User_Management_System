@@ -1,4 +1,5 @@
-﻿using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
+﻿using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
 
         public IEnumerable<User> GetUsersByName(string name)
         {
-            return _users.Where(u => u.UserName == name);
+            return _users.Where(u => u.Username == name);
         }
 
         public List<User> GetAllUsers()
@@ -38,9 +39,28 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             return _users;
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(User user, string propertyName, string newValue)
         {
-            throw new NotImplementedException();
+            User userToUpdate = _users.FirstOrDefault(u => u.Id == user.Id);
+
+            switch (propertyName)
+            {
+                case "Email":
+                    userToUpdate.Email = newValue;
+                    break;
+                case "Username":
+                    userToUpdate.Username = newValue;
+                    break;
+                case "Password":
+                    userToUpdate.Password = newValue;
+                    break;
+                case "UserType":
+                    userToUpdate.UserType = Enum.TryParse(newValue, true, out EnumUserType isEnum) ? isEnum : userToUpdate.UserType;
+                    break;
+            }
+
+            
+
         }
     }
 }

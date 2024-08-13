@@ -116,7 +116,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public User ValidateUser(string userName, string password)
         {
-            User user = _adminRepository.GetAllUsers().FirstOrDefault(u => u.UserName == userName && u.Password == password);
+            User user = _adminRepository.GetAllUsers().FirstOrDefault(u => u.Username == userName && u.Password == password);
             return user;
         }
     }

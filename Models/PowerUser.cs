@@ -15,8 +15,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
 
         public PowerUser() : base() { }
 
-        public PowerUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserType userType) : base(name, lastName, nif, email, userName, password, userType)
-        {
-        }
+        public PowerUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserType userType) : base(name, lastName, nif, email, userName, password, userType){ }
     }
 }

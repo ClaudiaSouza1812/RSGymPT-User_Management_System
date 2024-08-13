@@ -11,7 +11,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories
     {
         IEnumerable<User> GetUsersByName(string name);
         User GetUserById(int id);
-        void UpdateUser(User user);
+        void UpdateUser(User user, string propertyName, string newValue);
         void AddUser(User user);
         List<User> GetAllUsers();
     }

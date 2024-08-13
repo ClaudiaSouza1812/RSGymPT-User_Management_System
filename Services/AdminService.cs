@@ -4,20 +4,21 @@ using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     internal class AdminService : IAdminService
     {
-        public readonly AdminRepository _adminRepository;
+        public readonly IAdminRepository _adminRepository;
 
-        public AdminService(AdminRepository adminRepository)
+        public AdminService(IAdminRepository adminRepository)
         { 
             _adminRepository = adminRepository;
         }
@@ -48,9 +49,16 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 return null;
             }
 
-            (user.UserName, user.Password) = DefineFullAccess();
+            user.Username = DefineUsername();
 
-            if (string.IsNullOrEmpty(user.UserName))
+            if (string.IsNullOrEmpty(user.Username))
+            {
+                return null;
+            }
+
+            user.Password = DefinePassword();
+
+            if (string.IsNullOrEmpty(user.Password))
             {
                 return null;
             }
@@ -58,25 +66,65 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return user;
         }
 
-        public void ChangeUser()
+        public User GetUserToChange()
         {
-            RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+            User user = new User();
 
-            ListAllUsers();
+            do
+            {
+                Console.Clear();
 
-            string userId = AskUserId();
+                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
 
+                int userId = AskUserId();
 
+                user = _adminRepository.GetUserById(userId);
+
+                if (user != null)
+                {
+                    return user;
+                }
+
+                RSGymUtility.WriteMessage("Usuário Inexistente", "", "\n");
+
+            } while (KeepGoing());
+
+            return null;
         }
 
-        // Personal trainer helper function to ask and return the PT code
-        internal static string AskUserId()
+        // Admin service helper function to ask and return the user Id
+        internal int AskUserId()
         {
-            RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n\n", "");
-            string userId = Console.ReadLine().ToUpper();
+            bool isNumber;
+            int userId;
+            do
+            {
+                Console.Clear();
 
+                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+
+                ListAllUsers();
+
+                RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n\n", "");
+                string answer = Console.ReadLine();
+
+                (isNumber, userId) = CheckInt(answer);
+
+            } while (!isNumber || userId == 0);
+            
             return userId;
         }
+
+        internal (bool, int) CheckInt(string answer)
+        {
+            int userId = 0;
+            bool isNumber;
+
+            isNumber = int.TryParse(answer, out userId);
+
+            return (isNumber, userId);
+        }
+
 
         public void ListAllUsers()
         {
@@ -212,9 +260,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return true;
         }
 
-        public (string, string) DefineFullAccess()
+        public string DefineUsername()
         {
-            string userName, password;
+            string userName;
             do
             {
                 Console.Clear();
@@ -225,6 +273,25 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 userName = Console.ReadLine().ToLower();
 
+                if (!CheckUsername(userName))
+                {
+                    RSGymUtility.WriteMessage("Digite um username válido.", "\n");
+                }
+                else
+                {
+                    return userName;
+                }
+
+            } while (KeepGoing());
+
+            return string.Empty;
+        }
+
+        public string DefinePassword()
+        {
+            string password;
+            do
+            {
                 RSGymUtility.WriteMessage("Defina a password com 6 caracteres e sem espaços.", "\n", "\n");
 
                 RSGymUtility.WriteMessage("Password: ", "", "\n");
@@ -232,25 +299,54 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 password = Console.ReadLine().ToLower();
 
 
-                if (!CheckUserName(userName))
-                {
-                    RSGymUtility.WriteMessage("Digite um username válido.", "\n");
-                }
-                else if (!CheckPassword(password))
+                if (!CheckPassword(password))
                 {
                     RSGymUtility.WriteMessage("Digite uma password válida.", "\n");
                 }
                 else
                 {
-                    return (userName, password);
+                    return password;
                 }
 
             } while (KeepGoing());
 
-            return (string.Empty, string.Empty);
+            return string.Empty;
         }
 
-        public bool CheckUserName(string userName)
+        public EnumUserType DefineUserType()
+        {
+            EnumUserType userType = new EnumUserType();
+            do
+            {
+                foreach (EnumUserType type in Enum.GetValues(typeof(EnumUserType)))
+                {
+                    RSGymUtility.WriteMessage($"({(int)type}) - ({type})", "", "\n");
+                }
+
+                RSGymUtility.WriteMessage("Digite um dos numeros de usuário acima.", "\n", "\n");
+
+                RSGymUtility.WriteMessage("Numero do usuário: ", "", "\n");
+
+                string answer = Console.ReadLine().ToLower();
+
+                bool isNumber = int.TryParse(answer, out int number);
+
+                if (isNumber && Enum.IsDefined(typeof(EnumUserType), number))
+                {
+                    userType = (EnumUserType)number;
+                    break;
+                }
+                else
+                {
+                    RSGymUtility.WriteMessage("Entrada inválida.", "\n");
+                }
+
+            } while (KeepGoing());
+
+            return userType;
+        }
+
+        public bool CheckUsername(string userName)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrWhiteSpace(userName) || userName.Length != 6)
             {
@@ -284,6 +380,45 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 return false;
             }
             return true;
+        }
+
+        public void ChangeUser(User user, string property)
+        {
+            switch (property)
+            {
+                case "Email":
+                    user.Email = DefineEmail();
+
+                    if (user.Email != string.Empty)
+                    {
+                        _adminRepository.UpdateUser(user, property, user.Email);
+                    }
+                    break;
+                case "Username":
+                    user.Username = DefineUsername();
+
+                    if (user.Username != string.Empty)
+                    {
+                        _adminRepository.UpdateUser(user, property, user.Username);
+                    }
+                    break;
+                case "Password":
+                    user.Password = DefinePassword();
+
+                    if (user.Password != string.Empty)
+                    {
+                        _adminRepository.UpdateUser(user, property, user.Password);
+                    }
+                    break;
+                case "Perfil":
+                    user.UserType = DefineUserType();
+                    _adminRepository.UpdateUser(user, property, user.UserType.ToString());
+                    
+                    break;
+                default:
+                    break;
+            }
+            
         }
     }
 }

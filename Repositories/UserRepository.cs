@@ -21,7 +21,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
 
         public bool CheckUserName(string userName)
         {
-            return _adminRepository.GetAllUsers().Any(u => u.UserName == userName);
+            return _adminRepository.GetAllUsers().Any(u => u.Username == userName);
         }
 
         

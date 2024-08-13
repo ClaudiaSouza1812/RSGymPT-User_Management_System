@@ -16,7 +16,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels
         string LastName { get; }
         string NIF { get; }
         string Email { get; }
-        string UserName { get; }
+        string Username { get; }
         string Password { get; }
         EnumUserType UserType { get; }
 

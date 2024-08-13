@@ -16,7 +16,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
     {
         private User _currentUser;
         private User user;
-
         public readonly IUserService _userService;
         public readonly IAdminService _adminService;
         public readonly IAdminRepository _adminRepository;
@@ -61,10 +60,32 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             // Run the main menu
             
             menuKey = GetUserChoice("main");
-            menuAction = ValidateMainMenu(adminMainMenu, menuKey);
+            menuAction = ValidateAdminMainMenu(adminMainMenu, menuKey);
                 
             RunAdminSubmenu(menuAction.Item2);
                
+
+            // Show the RSGymPT logo
+            ShowLogo("end", _currentUser.Name);
+
+            RunLoginMenu();
+        }
+
+        public void RunAdminChangeMenu()
+        {
+            // Show the admin change menu
+            Dictionary<int, string> adminChangeMenu = ShowAdminChangeMenu();
+
+            int menuKey;
+            (int, string) menuAction;
+
+            // Run the main menu
+
+            menuKey = GetUserChoice("change");
+            menuAction = ValidateAdminChangeMenu(adminChangeMenu, menuKey);
+
+            RunAdminChangeSubmenu(menuAction.Item2);
+
 
             // Show the RSGymPT logo
             ShowLogo("end", _currentUser.Name);
@@ -85,7 +106,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     }
                     break;
                 case "Alterar":
-                    _adminService.ChangeUser();
+                    user = _adminService.GetUserToChange();
+                    if (user != null)
+                    {
+                        RunAdminChangeMenu();
+                    }
                     break;
                 
                 /*
@@ -101,10 +126,31 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
         }
 
+        // Method to run the order submenu
+        public void RunAdminChangeSubmenu(string menuAction)
+        {
+            _adminService.ChangeUser(user, menuAction);
+        }
+                   
+
         // Validate the main menu
-        internal (int, string) ValidateMainMenu(Dictionary<int, string> adminMainMenu, int menuKey)
+        internal (int, string) ValidateAdminMainMenu(Dictionary<int, string> adminMainMenu, int menuKey)
         {
             foreach (KeyValuePair<int, string> menu in adminMainMenu)
+            {
+                if (menu.Key == menuKey)
+                {
+                    return (menu.Key, menu.Value);
+                }
+            }
+
+            return (-1, string.Empty);
+        }
+
+        // Validate the change menu
+        internal (int, string) ValidateAdminChangeMenu(Dictionary<int, string> adminChangeMenu, int menuKey)
+        {
+            foreach (KeyValuePair<int, string> menu in adminChangeMenu)
             {
                 if (menu.Key == menuKey)
                 {
@@ -185,9 +231,13 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 ShowLoginMenu();
             }
-            else
+            else if (menu == "main")
             {
                 ShowAdminMainMenu();
+            }
+            else if (menu == "change")
+            {
+                ShowAdminChangeMenu();
             }
         }
 
@@ -215,6 +265,29 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
             
             return mainMenu;
+        }
+
+        public Dictionary<int, string> ShowAdminChangeMenu()
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle($"RSGymPT Menu de alteração - {_currentUser.UserType}", "", "\n\n");
+            RSGymUtility.WriteMessage("Digite o número da opção que\ndesejada alterar e aperte 'Enter'", "", "\n\n");
+
+            Dictionary<int, string> changeMenu = new Dictionary<int, string>()
+            {
+                {1, "Email" },
+                {2, "Username" },
+                {3, "Password" },
+                {4, "Perfil" }
+            };
+
+            foreach (KeyValuePair<int, string> menu in changeMenu)
+            {
+                RSGymUtility.WriteMessage($"({menu.Key}) - {menu.Value}", "", "\n");
+            }
+
+            return changeMenu;
         }
 
 
