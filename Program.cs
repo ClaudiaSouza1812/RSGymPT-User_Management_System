@@ -1,8 +1,10 @@
 ﻿
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IMethods;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Methods;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility;
@@ -21,6 +23,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
         {
 
             // Method to output characters encoded to UTF-8 
+
             RSGymUtility.SetUnicodeConsole();
 
             IAdminRepository adminRepository = new AdminRepository();
@@ -32,7 +35,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
 
             IAdminService adminService = new AdminService(adminRepository);
 
-            IAppService appService = new AppService(userService, adminService, adminRepository);
+            AppService appService = new AppService(userService, adminService, adminRepository);
+
+            RSGymUtility rSGymUtility = new RSGymUtility();
 
             appService.RunRSGymProgram();
 

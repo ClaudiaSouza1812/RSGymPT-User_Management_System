@@ -22,7 +22,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         { 
             _adminRepository = adminRepository;
         }
-        
+
+        RSGymUtility rSGymUtility = new RSGymUtility();
+
         public User CreateUser()
         {
             User user = new User();
@@ -74,7 +76,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
-                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+                rSGymUtility.WriteTitle($"Alterar", "", "\n\n");
 
                 int userId = AskUserId();
 
@@ -101,7 +103,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
-                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+                rSGymUtility.WriteTitle($"Alterar", "", "\n\n");
 
                 ListAllUsers();
 
@@ -151,7 +153,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
-                RSGymUtility.WriteTitle($"RSGymPT Menu de navegação", "", "\n\n");
+                rSGymUtility.WriteTitle($"RSGymPT Menu de navegação", "", "\n\n");
 
                 RSGymUtility.WriteMessage("Insira o nome do utilizador: ", "", "\n");
 
@@ -223,6 +225,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             do
             {
                 Console.Clear();
+
+                rSGymUtility.WriteTitle($"RSGymPT Menu de Definição", "", "\n\n");
 
                 RSGymUtility.WriteMessage("Exemplo de email válido: teste@teste.com", "", "\n");
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories
 {
-    internal interface IAdminRepository
+    public interface IAdminRepository
     {
         IEnumerable<User> GetUsersByName(string name);
         User GetUserById(int id);

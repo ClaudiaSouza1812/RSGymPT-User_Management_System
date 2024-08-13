@@ -26,6 +26,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             _adminRepository = adminRepository;
         }
 
+        RSGymUtility rSGymUtility = new RSGymUtility();
+
         public string AskUserName()
         {
             RSGymUtility.WriteMessage("Insira seu nome de utilizador: ", "", "\n");
@@ -87,7 +89,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public User LogInUser()
         {
-            RSGymUtility.WriteTitle("Login", "", "\n\n");
+            rSGymUtility.WriteTitle("Login", "", "\n\n");
 
             string userName = AskUserName();
 

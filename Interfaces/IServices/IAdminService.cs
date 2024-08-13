@@ -9,7 +9,7 @@ using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
 {
-    internal interface IAdminService
+    public interface IAdminService
     {
         User CreateUser();
         void ChangeUser(User user, string property);

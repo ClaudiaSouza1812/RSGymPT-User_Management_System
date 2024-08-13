@@ -15,7 +15,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         Dictionary<string, string> ShowLoginMenu();
         int GetUserChoice(string chosenMenu);
         string ValidateLoginMenu(Dictionary<string, string> loginMenu, int key);
-        void ShowLogo(string status, string userName);
+        void ShowLogo(string status, User currentUser);
         void ShowMenu(string menu);
         void ShowLogoMessage(string status, string userName);
         void RunAdminMainMenu();

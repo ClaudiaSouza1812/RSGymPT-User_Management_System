@@ -1,9 +1,17 @@
-﻿using System;
+﻿using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
+using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services;
+using System;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
 {
-    public class RSGymUtility
+    public class RSGymUtility 
     {
+
+        internal static string CurrentUser { get; set; } = AppService.UpdateScreenUserType();
+
+
         // Method to ensure that characters from any language, including special characters, can be correctly displayed in the console.
         // This is particularly useful when working with text that contains characters from languages other than English, as UTF-8 supports a wide range of characters and symbols.
         public static void SetUnicodeConsole()
@@ -15,8 +23,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
         // Method to show a stylish title
         public static void WriteTitle(string title, string beginTitle = "", string endTitle = "")
         {
+            CurrentUser = AppService.UpdateScreenUserType();
+            string formattedTitle = $"{title} - {CurrentUser}";
+
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"{beginTitle}{new string('-', 44)}\n{title.ToUpper().PadLeft(22 - title.Length / 2 + title.Length, ' ')}\n{new string('-', 44)}{endTitle}");
+            Console.Write($"{beginTitle}{new string('-', 44)}\n{formattedTitle.ToUpper().PadLeft(22 - title.Length / 2 + title.Length, ' ')}\n{new string('-', 44)}{endTitle}");
             Console.ForegroundColor = ConsoleColor.White;   // Reset original color
         }
 

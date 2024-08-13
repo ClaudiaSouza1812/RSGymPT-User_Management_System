@@ -19,6 +19,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             _adminRepository = adminRepository;
         }
 
+        RSGymUtility rSGymUtility = new RSGymUtility();
+
         public bool CheckUserName(string userName)
         {
             return _adminRepository.GetAllUsers().Any(u => u.Username == userName);
@@ -29,7 +31,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
         {
             Console.Clear();
 
-            RSGymUtility.WriteTitle("Lista de Utilizadores", "\n", "\n\n");
+            rSGymUtility.WriteTitle("Lista de Utilizadores", "\n", "\n\n");
 
             
 
