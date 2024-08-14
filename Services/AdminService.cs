@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Xml.Linq;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
@@ -35,7 +36,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 return null;
             }
             
-
             user.NIF = DefineNif();
 
             if (string.IsNullOrEmpty(user.NIF))
@@ -67,11 +67,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return user;
         }
 
-        
-
-        
-
-        internal (bool, int) CheckInt(string answer)
+        public (bool, int) CheckInt(string answer)
         {
             int userId = 0;
             bool isNumber;
@@ -79,25 +75,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             isNumber = int.TryParse(answer, out userId);
 
             return (isNumber, userId);
-        }
-
-
-        public void ListAllUsers()
-        {
-            foreach (var user in _adminRepository.GetAllUsers())
-            {
-                RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
-            }
-        }
-
-        public void ListUserById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ListUsersByName(string name)
-        {
-            throw new NotImplementedException();
         }
 
         public (string, string) DefineFullName()
@@ -109,13 +86,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
-                RSGymUtility.WriteMessage("Insira o nome do utilizador: ", "", "\n");
+                name = AskUserName();
 
-                name = Console.ReadLine().ToLower();
-
-                RSGymUtility.WriteMessage("Insira o sobrenome do utilizador: ", "", "\n");
-
-                lastName = Console.ReadLine().ToLower();
+                lastName = AskUserLastName();
 
                 if (!CheckFullName(name, lastName))
                 {
@@ -129,6 +102,26 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             } while (KeepGoing());
             
             return (string.Empty, string.Empty);
+        }
+
+        public string AskUserName()
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("RSGymPT Menu - Nome de Utilizador", "", "\n\n");
+
+            RSGymUtility.WriteMessage("Insira o nome do utilizador: ", "", "\n");
+
+            string name = Console.ReadLine().ToLower();
+            return name;
+        }
+
+        public string AskUserLastName()
+        {
+            RSGymUtility.WriteMessage("Insira o sobrenome do utilizador: ", "", "\n");
+
+            string lastName = Console.ReadLine().ToLower();
+            return lastName;
         }
 
         public bool CheckFullName(string name, string lastName)
@@ -148,6 +141,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         public string DefineNif()
         {
             string nif;
+            User user;
+            bool isValid;
             do
             {
                 Console.Clear();
@@ -166,13 +161,35 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 }
                 else
                 {
-                    nif = answer;
-                    return nif;
+                    (isValid, user) = CheckNif(answer);
+                    if (isValid)
+                    {
+                        nif = answer;
+                        return nif;
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage($"NIF já cadastrado para utilizador {user.FullName}, (Id): {user.Id}.", "\n","\n");
+                    }
+                    
                 }
 
             } while (KeepGoing());
 
             return string.Empty;
+        }
+
+        public (bool, User) CheckNif(string nif)
+        {
+            List<User> users = _adminRepository.GetAllUsers();
+            foreach (var user in users)
+            {
+                if (user.NIF == nif)
+                {
+                    return (false, user);
+                }
+            }
+            return (true, null);
         }
 
         public string DefineEmail()
@@ -353,33 +370,28 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         }
 
         // Admin service helper function to ask and return the user Id
-        internal int AskUserId()
+        
+        public int AskUserId()
         {
-            bool isNumber;
             int userId = 0;
-            do
+            bool isNumber;
+
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("RSGymPT Menu - Utilizador Id", "", "\n\n");
+
+            RSGymUtility.WriteMessage("Digite o Id do utilizador: ", "\n", "\n");
+            string answer = Console.ReadLine();
+
+            if (!string.IsNullOrEmpty(answer))
             {
-                Console.Clear();
-
-                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
-
-                ListAllUsers();
-
-                RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n\n", "");
-                string answer = Console.ReadLine();
-
-                if (string.IsNullOrEmpty(answer))
-                {
-                    break;
-                }
-
                 (isNumber, userId) = CheckInt(answer);
-
-            } while (!isNumber || userId == 0);
-
+            }
+            
             return userId;
         }
 
+        
         public User GetUserToChange()
         {
             User user = new User();
@@ -389,6 +401,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 Console.Clear();
 
                 RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+
+                ListAllUsers();
 
                 int userId = AskUserId();
 
@@ -447,7 +461,41 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 default:
                     break;
             }
-            
+        }
+
+        public void ListAllUsers()
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("Lista de Utilizadores", "", "\n\n");
+
+            List<User> users = _adminRepository.GetAllUsers();
+
+            foreach (var user in users)
+            {
+                RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
+            }
+        }
+
+        public void ListUserById(User user)
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("Lista de Utilizadores por id", "", "\n\n");
+
+            RSGymUtility.WriteMessage($"{user.FullUser}", "", "\n");
+        }
+
+        public void ListUsers(List<User> users)
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("Lista de Utilizadores", "", "\n\n");
+
+            foreach (var user in users)
+            {
+                RSGymUtility.WriteMessage($"{user.FullUser}", "", "\n");
+            }   
         }
     }
 }

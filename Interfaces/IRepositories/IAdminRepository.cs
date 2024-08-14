@@ -9,7 +9,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories
 {
     public interface IAdminRepository
     {
-        IEnumerable<User> GetUsersByName(string name);
+        List<User> GetUsersByName(string name);
         User GetUserById(int id);
         void UpdateUser(User user, string propertyName, string newValue);
         void AddUser(User user);

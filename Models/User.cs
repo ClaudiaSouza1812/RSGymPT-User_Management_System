@@ -24,8 +24,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
         public virtual EnumUserType UserType { get; set; }
 
         #endregion
+        internal virtual string FullName => $"{Name} {LastName}";
 
-        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {Name}\n(Nome de utilizador): {Username}\n(Usuário): {UserType}";
+        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {FullName}\n(NIF): {NIF}\n(Email): {Email}\n(Nome de utilizador): {Username}\n(Usuário): {UserType}";
 
         public User() 
         {

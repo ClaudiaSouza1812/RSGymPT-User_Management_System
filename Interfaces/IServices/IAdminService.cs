@@ -15,20 +15,27 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         void ChangeUser(User user, string property);
         void ListAllUsers();
         User GetUserToChange();
+        int AskUserId();
+        string AskUserName();
 
         (string, string) DefineFullName();
-        bool CheckFullName(string name, string lastName);
         string DefineNif();
         string DefineEmail();
-        bool CheckEmail(string email);
         string DefineUsername();
         string DefinePassword();
         EnumUserType DefineUserType();
+
+
+        bool CheckFullName(string name, string lastName);
+        bool CheckEmail(string email);
         bool CheckUsername(string userName);
         bool CheckPassword(string password);
+        (bool, int) CheckInt(string id);
+        (bool, User) CheckNif(string nif);
+
         bool KeepGoing();
-        void ListUsersByName(string name);
-        void ListUserById(int id);
-        
+        void ListUserById(User user);
+        void ListUsers(List<User> users);
+
     }
 }

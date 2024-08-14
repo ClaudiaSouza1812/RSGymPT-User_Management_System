@@ -29,9 +29,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             return _users.FirstOrDefault(u => u.Id == id);
         }
 
-        public IEnumerable<User> GetUsersByName(string name)
+        public List<User> GetUsersByName(string name)
         {
-            return _users.Where(u => u.Username == name);
+            return _users.Where(u => u.Name.ToLower() == name.ToLower()).ToList();
         }
 
         public List<User> GetAllUsers()
