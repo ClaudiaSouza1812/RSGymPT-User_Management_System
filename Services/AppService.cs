@@ -375,6 +375,47 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
         }
 
+        public void RunAdminChangeMenu()
+        {
+
+            do
+            {
+                // Show the admin change menu
+                Dictionary<int, string> adminChangeMenu = ShowAdminChangeMenu();
+
+                int menuKey;
+                (int, string) menuAction;
+
+                // Run the main menu
+
+                menuKey = GetUserChoice("change");
+                menuAction = ValidateAdminChangeMenu(adminChangeMenu, menuKey);
+
+                if (menuAction.Item2 == "Sair")
+                {
+                    break;
+                }
+
+                RunAdminChangeSubmenu(menuAction.Item2);
+
+            } while (_adminService.KeepGoing());
+
+
+            RunAdminMainMenu();
+
+            /*
+            // Show the RSGymPT logo
+            ShowLogo("end", _currentUser);
+
+            RunLoginMenu();
+            */
+        }
+
+        // Method to run the order submenu
+        public void RunAdminChangeSubmenu(string menuAction)
+        {
+            _adminService.ChangeUser(user, menuAction);
+        }
 
         //HERE***
 
@@ -458,41 +499,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         
 
-        public void RunAdminChangeMenu()
-        {
-
-            do
-            {
-                // Show the admin change menu
-                Dictionary<int, string> adminChangeMenu = ShowAdminChangeMenu();
-
-                int menuKey;
-                (int, string) menuAction;
-
-                // Run the main menu
-
-                menuKey = GetUserChoice("change");
-                menuAction = ValidateAdminChangeMenu(adminChangeMenu, menuKey);
-
-                if (menuAction.Item2 == "Sair")
-                {
-                    break;
-                }
-
-                RunAdminChangeSubmenu(menuAction.Item2);
-
-            } while (_adminService.KeepGoing());
-
-
-            RunAdminMainMenu();
-
-            /*
-            // Show the RSGymPT logo
-            ShowLogo("end", _currentUser);
-
-            RunLoginMenu();
-            */
-        }
+        
 
         
 
@@ -595,11 +602,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             RunAdminMainMenu();
         }
 
-        // Method to run the order submenu
-        public void RunAdminChangeSubmenu(string menuAction)
-        {
-            _adminService.ChangeUser(user, menuAction);
-        }
+        
                    
 
         

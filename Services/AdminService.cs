@@ -104,7 +104,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         {
             Console.Clear();
 
-            RSGymUtility.WriteTitle("RSGymPT Menu - Nome de Utilizador", "", "\n\n");
+            RSGymUtility.WriteTitle("RSGymPT Menu - Definição", "", "\n\n");
 
             RSGymUtility.WriteMessage("Insira o primeiro nome do utilizador: ", "", "\n");
 
@@ -133,24 +133,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return true;
         }
 
-
-        //HERE***
-
-
-        public (bool, int) CheckInt(string answer)
-        {
-            int userId = 0;
-            bool isNumber;
-
-            isNumber = int.TryParse(answer, out userId);
-
-            return (isNumber, userId);
-        }
-
-
-        
-
-        
         public string DefineNif()
         {
             string nif;
@@ -164,7 +146,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteMessage("Insira o NIF do utilizador com 9 números: ", "", "\n");
 
-                string answer = Console.ReadLine().ToLower();
+                string answer = Console.ReadLine();
 
                 bool isNumber = int.TryParse(answer, out int _);
 
@@ -175,6 +157,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 else
                 {
                     (isValid, user) = CheckNif(answer);
+
                     if (isValid)
                     {
                         nif = answer;
@@ -182,7 +165,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage($"NIF já cadastrado para utilizador {user.FullName}, (Id): {user.Id}.", "\n","\n");
+                        RSGymUtility.WriteMessage($"NIF já cadastrado para utilizador {user.FullName}, (Id): {user.Id}.", "\n", "\n");
                     }
                 }
 
@@ -194,6 +177,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         public (bool, User) CheckNif(string nif)
         {
             List<User> users = _adminRepository.GetAllUsers();
+
             foreach (var user in users)
             {
                 if (user.NIF == nif)
@@ -240,7 +224,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 return false;
             }
 
-            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]{2,3}$";
 
             if (!Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase))
             {
@@ -278,6 +262,15 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return string.Empty;
         }
 
+        public bool CheckUsername(string userName)
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrWhiteSpace(userName) || userName.Length != 6)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public string DefinePassword()
         {
             string password;
@@ -307,6 +300,135 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
             return string.Empty;
         }
+
+        public User GetUserToChange()
+        {
+            User user = new User();
+
+            do
+            {
+                Console.Clear();
+
+                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+
+                ListAllUsers();
+
+                RSGymUtility.PauseConsole();
+
+                int userId = AskUserId();
+
+                user = _adminRepository.GetUserById(userId);
+
+                if (user != null)
+                {
+                    return user;
+                }
+
+                RSGymUtility.WriteMessage("Usuário Inexistente", "", "\n");
+
+            } while (KeepGoing());
+
+            return null;
+        }
+
+        public void ListAllUsers()
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("Lista de Utilizadores", "", "\n\n");
+
+            List<User> users = _adminRepository.GetAllUsers();
+
+            foreach (var user in users)
+            {
+                RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
+            }
+        }
+
+        // Admin service helper function to ask and return the user Id
+
+        public int AskUserId()
+        {
+            int userId = 0;
+            bool isNumber;
+
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("RSGymPT Menu - Utilizador Id", "", "\n\n");
+
+            RSGymUtility.WriteMessage("Digite o Id do utilizador: ", "\n", "\n");
+            string answer = Console.ReadLine();
+
+            if (!string.IsNullOrEmpty(answer))
+            {
+                (isNumber, userId) = CheckInt(answer);
+            }
+
+            return userId;
+        }
+
+        public (bool, int) CheckInt(string answer)
+        {
+            int userId = 0;
+            bool isNumber;
+
+            isNumber = int.TryParse(answer, out userId);
+
+            return (isNumber, userId);
+        }
+
+        public void ChangeUser(User user, string property)
+        {
+            switch (property)
+            {
+                case "Email":
+                    user.Email = DefineEmail();
+
+                    if (user.Email != string.Empty)
+                    {
+                        _adminRepository.UpdateUser(user, property, user.Email);
+                        RSGymUtility.WriteMessage("Email alterado com sucesso.", "\n", "\n");
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                    }
+                    break;
+                case "Username":
+                    user.Username = DefineUsername();
+
+                    if (user.Username != string.Empty)
+                    {
+                        _adminRepository.UpdateUser(user, property, user.Username);
+                        RSGymUtility.WriteMessage("Username alterado com sucesso.", "\n", "\n");
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                    }
+                    break;
+                case "Password":
+                    user.Password = DefinePassword();
+
+                    if (user.Password != string.Empty)
+                    {
+                        _adminRepository.UpdateUser(user, property, user.Password);
+                        RSGymUtility.WriteMessage("Password alterado com sucesso.", "\n", "\n");
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                    }
+                    break;
+                case "Perfil":
+                    user.UserType = DefineUserType();
+                    _adminRepository.UpdateUser(user, property, user.UserType.ToString());
+                    RSGymUtility.WriteMessage("Tipo de usuário alterado com sucesso.", "\n", "\n");
+                    break;
+
+            }
+        }
+
 
         public EnumUserType DefineUserType()
         {
@@ -345,14 +467,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return userType;
         }
 
-        public bool CheckUsername(string userName)
-        {
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrWhiteSpace(userName) || userName.Length != 6)
-            {
-                return false;
-            }
-            return true;
-        }
+
+        //HERE***
+
 
         public bool CheckPassword(string password)
         {
@@ -381,113 +498,14 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return true;
         }
 
-        // Admin service helper function to ask and return the user Id
         
-        public int AskUserId()
-        {
-            int userId = 0;
-            bool isNumber;
-
-            Console.Clear();
-
-            RSGymUtility.WriteTitle("RSGymPT Menu - Utilizador Id", "", "\n\n");
-
-            RSGymUtility.WriteMessage("Digite o Id do utilizador: ", "\n", "\n");
-            string answer = Console.ReadLine();
-
-            if (!string.IsNullOrEmpty(answer))
-            {
-                (isNumber, userId) = CheckInt(answer);
-            }
-            
-            return userId;
-        }
 
         
-        public User GetUserToChange()
-        {
-            User user = new User();
+        
 
-            do
-            {
-                Console.Clear();
+        
 
-                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
-
-                ListAllUsers();
-
-                int userId = AskUserId();
-
-                user = _adminRepository.GetUserById(userId);
-
-                if (user != null)
-                {
-                    return user;
-                }
-
-                RSGymUtility.WriteMessage("Usuário Inexistente", "", "\n");
-
-            } while (KeepGoing());
-
-            return null;
-        }
-
-        public void ChangeUser(User user, string property)
-        {
-            switch (property)
-            {
-                case "Email":
-                    user.Email = DefineEmail();
-
-                    if (user.Email != string.Empty)
-                    {
-                        _adminRepository.UpdateUser(user, property, user.Email);
-                        RSGymUtility.WriteMessage("Email alterado com sucesso.", "\n", "\n");
-                    }
-                    else
-                    {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
-                    }
-                    break;
-                case "Username":
-                    user.Username = DefineUsername();
-
-                    if (user.Username != string.Empty)
-                    {
-                        _adminRepository.UpdateUser(user, property, user.Username);
-                    }
-                    break;
-                case "Password":
-                    user.Password = DefinePassword();
-
-                    if (user.Password != string.Empty)
-                    {
-                        _adminRepository.UpdateUser(user, property, user.Password);
-                    }
-                    break;
-                case "Perfil":
-                    user.UserType = DefineUserType();
-                    _adminRepository.UpdateUser(user, property, user.UserType.ToString());
-                    
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void ListAllUsers()
-        {
-            Console.Clear();
-
-            RSGymUtility.WriteTitle("Lista de Utilizadores", "", "\n\n");
-
-            List<User> users = _adminRepository.GetAllUsers();
-
-            foreach (var user in users)
-            {
-                RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
-            }
-        }
+       
 
         public void ListUserById(User user)
         {

@@ -24,8 +24,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             return _users;
         }
 
-        //HERE***
-
         public void AddUser(User user)
         {
             _users.Add(user);
@@ -35,13 +33,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
         {
             return _users.FirstOrDefault(u => u.Id == id);
         }
-
-        public List<User> GetUsersByName(string name)
-        {
-            return _users.Where(u => u.Name.ToLower() == name.ToLower()).ToList();
-        }
-
-        
 
         public void UpdateUser(User user, string propertyName, string newValue)
         {
@@ -62,9 +53,21 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
                     userToUpdate.UserType = Enum.TryParse(newValue, true, out EnumUserType isEnum) ? isEnum : userToUpdate.UserType;
                     break;
             }
-
-            
-
         }
+
+        //HERE***
+
+
+
+
+
+        public List<User> GetUsersByName(string name)
+        {
+            return _users.Where(u => u.Name.ToLower() == name.ToLower()).ToList();
+        }
+
+        
+
+        
     }
 }
