@@ -12,7 +12,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         #region Methods and Functions
 
         
-        string AskUserName();
+        string AskUsername();
         string AskUserPassword();
         User ValidateUser(string userName, string password);
         User LogInUser();

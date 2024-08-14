@@ -37,8 +37,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
 
             AppService appService = new AppService(userService, adminService, adminRepository);
 
-            RSGymUtility rSGymUtility = new RSGymUtility();
-
             appService.RunRSGymProgram();
 
         }

@@ -26,15 +26,46 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             _adminRepository = adminRepository;
         }
 
-        RSGymUtility rSGymUtility = new RSGymUtility();
+        public User LogInUser()
+        {
+            RSGymUtility.WriteTitle("Login", "", "\n\n");
 
-        public string AskUserName()
+            string username = AskUsername();
+
+            if (!_userRepository.CheckUserName(username))
+            {
+                RSGymUtility.WriteMessage("Nome de utilizador inválido ou inexistente.", "", "\n");
+
+                RSGymUtility.PauseConsole();
+                return null;
+            }
+
+            string password = AskUserPassword();
+
+            User user = ValidateUser(username, _encryptPassword.EncryptPassword(password));
+
+            if (user == null)
+            {
+                RSGymUtility.WriteMessage("Palavra-passe inválida.", "\n", "\n");
+
+                RSGymUtility.PauseConsole();
+                return user;
+            }
+
+            return user;
+        }
+
+        
+        public string AskUsername()
         {
             RSGymUtility.WriteMessage("Insira seu nome de utilizador: ", "", "\n");
 
             string userName = Console.ReadLine().ToLower();
             return userName;
         }
+
+
+        //HERE***
 
         public string AskUserPassword()
         {
@@ -87,34 +118,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return _adminRepository.GetAllUsers().Any(u => u.NIF == user.NIF);
         }
 
-        public User LogInUser()
-        {
-            RSGymUtility.WriteTitle("Login", "", "\n\n");
-
-            string userName = AskUserName();
-
-            if (!_userRepository.CheckUserName(userName))
-            {
-                RSGymUtility.WriteMessage("Nome de utilizador inválido ou inexistente.", "", "\n");
-
-                RSGymUtility.PauseConsole();
-                return null;
-            }
-
-            string password = AskUserPassword();
-
-            User user = ValidateUser(userName, _encryptPassword.EncryptPassword(password));
-
-            if (user == null)
-            {
-                RSGymUtility.WriteMessage("Palavra-passe inválida.", "\n", "\n");
-
-                RSGymUtility.PauseConsole();
-                return user;
-            }
-
-            return user;
-        }
+        
 
         public User ValidateUser(string userName, string password)
         {

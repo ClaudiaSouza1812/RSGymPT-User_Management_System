@@ -31,6 +31,139 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         static string currentUser = UpdateScreenUserType();
 
+        public void RunRSGymProgram()
+        {
+            RunLoginMenu();
+        }
+
+        public void RunLoginMenu()
+        {
+            // Show the login menu
+            Dictionary<string, string> loginMenu = ShowLoginMenu();
+
+            string loginAction;
+            int loginKey;
+
+            do
+            {
+                loginKey = GetUserChoice("login");
+                loginAction = ValidateLoginMenu(loginMenu, loginKey);
+
+                if (loginAction == "Sair")
+                {
+                    ShowLogo("end");
+                    return;
+                }
+
+                if (loginAction == "Login")
+                {
+                    _currentUser = _userService.LogInUser();
+                }
+
+            } while (loginAction != "Sair" && _currentUser == null);
+
+            if (_currentUser != null)
+            {
+                // Show the RSGymPT logo
+                ShowLogo("begin");
+
+                // Run the main menu
+                RunMainMenu();
+            }
+
+        }
+
+        // Get user menu number choice
+        public int GetUserChoice(string chosenMenu)
+        {
+            int menuNumber;
+            bool status;
+            do
+            {
+                Console.Clear();
+
+                ShowMenu(chosenMenu);
+
+                RSGymUtility.WriteMessage("Número: ", "\n", "");
+                string answer = Console.ReadLine();
+
+                status = int.TryParse(answer, out menuNumber);
+
+                if (!status)
+                {
+                    RSGymUtility.WriteMessage("Digite um número válido.", "\n");
+                }
+
+            } while (!status);
+
+            return menuNumber;
+        }
+
+        // Validate the login menu
+        public string ValidateLoginMenu(Dictionary<string, string> loginMenu, int key)
+        {
+            string action;
+            bool status;
+
+            status = loginMenu.TryGetValue(key.ToString(), out action);
+
+            if (status)
+            {
+                return action;
+            }
+
+            RSGymUtility.WriteMessage($"Escolha um número válido.", "\n", "\n");
+
+            RSGymUtility.PauseConsole();
+
+            return string.Empty;
+        }
+
+        //HERE
+
+        // Show the chosen menu
+        public void ShowMenu(string menu)
+        {
+            if (menu == "login")
+            {
+                ShowLoginMenu();
+            }
+            else if (menu == "main")
+            {
+                ShowAdminMainMenu();
+            }
+            else if (menu == "change")
+            {
+                ShowAdminChangeMenu();
+            }
+            else if (menu == "search")
+            {
+                ShowAdminSearchMenu();
+            }
+        }
+
+        // Function to show and return the login menu
+        public Dictionary<string, string> ShowLoginMenu()
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("RSGymPT Login Menu", "", "\n\n");
+            RSGymUtility.WriteMessage($"Digite o número da opção desejada e aperte 'Enter'", "", "\n\n");
+
+            Dictionary<string, string> loginMenu = new Dictionary<string, string>()
+            {
+                {"1", "Login" },
+                {"2", "Sair" }
+            };
+
+            foreach (KeyValuePair<string, string> item in loginMenu)
+            {
+                RSGymUtility.WriteMessage($"({item.Key}) - {item.Value}", "", "\n");
+            }
+
+            return loginMenu;
+        }
+
         public void RunMainMenu()
         {
             switch (_currentUser.UserType)
@@ -45,6 +178,42 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     RunSimpleUserMainMenu();
                     break;
             }
+
+        }
+
+        public void RunSimpleUserMainMenu()
+        {
+            (int, string) menuAction;
+            do
+            {
+                // Show the main menu
+                Dictionary<int, string> adminMainMenu = ShowPowerUserMainMenu();
+
+                int menuKey;
+
+
+                // Run the main menu
+
+                menuKey = GetUserChoice("main");
+                menuAction = ValidateAdminMainMenu(adminMainMenu, menuKey);
+
+                if (menuAction.Item2 == "Terminar")
+                {
+                    break;
+                }
+
+                if (!string.IsNullOrEmpty(menuAction.Item2))
+                {
+                    RunAdminSubmenu(menuAction.Item2);
+                }
+                else
+                {
+                    RSGymUtility.WriteMessage("Digite um numero válido.", "\n", "\n");
+                    RSGymUtility.PauseConsole();
+                }
+            } while (menuAction.Item2 != "Terminar");
+
+            RunLoginMenu();
 
         }
 
@@ -346,89 +515,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return (-1, string.Empty);
         }
 
-        public void RunLoginMenu()
-        {
-            // Show the login menu
-            Dictionary<string, string> loginMenu = ShowLoginMenu();
+        
 
-            string loginAction;
-            int loginKey;
+        
 
-            do
-            {
-                loginKey = GetUserChoice("login");
-                loginAction = ValidateLoginMenu(loginMenu, loginKey);
-
-                if (loginAction == "Sair")
-                {
-                    ShowLogo("end");
-                    return;
-                }
-
-                if (loginAction == "Login")
-                {
-                    _currentUser = _userService.LogInUser();
-                }
-
-            } while (loginAction != "Sair" && _currentUser == null);
-
-            if (_currentUser != null)
-            {
-                // Show the RSGymPT logo
-                ShowLogo("begin");
-
-                // Run the main menu
-                RunMainMenu();
-            }
-            
-        }
-
-        // Get user menu number choice
-        public int GetUserChoice(string chosenMenu)
-        {
-            int menuNumber;
-            bool status;
-            do
-            {
-                Console.Clear();
-
-                ShowMenu(chosenMenu);
-
-                RSGymUtility.WriteMessage("Número: ", "\n", "");
-                string answer = Console.ReadLine();
-
-                status = int.TryParse(answer, out menuNumber);
-
-                if (!status)
-                {
-                    RSGymUtility.WriteMessage("Digite um número válido.", "\n");
-                }
-
-            } while (!status);
-
-            return menuNumber;
-        }
-
-        // Show the chosen menu
-        public void ShowMenu(string menu)
-        {
-            if (menu == "login")
-            {
-                ShowLoginMenu();
-            }
-            else if (menu == "main")
-            {
-                ShowAdminMainMenu();
-            }
-            else if (menu == "change")
-            {
-                ShowAdminChangeMenu();
-            }
-            else if (menu == "search")
-            {
-                ShowAdminSearchMenu();
-            }
-        }
+        
 
         // Function to show and return the main menu
         public void ShowMainMenu()
@@ -564,25 +655,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return searchMenu;
         }
 
-        // Validate the login menu
-        public string ValidateLoginMenu(Dictionary<string, string> loginMenu, int key)
-        {
-            string action;
-            bool status;
-
-            status = loginMenu.TryGetValue(key.ToString(), out action);
-
-            if (status)
-            {
-                return action;
-            }
-
-            RSGymUtility.WriteMessage($"Escolha um número válido.", "\n", "\n");
-
-            RSGymUtility.PauseConsole();
-
-            return string.Empty;
-        }
+        
 
         // Show RSGymPT logo
         public void ShowLogo(string status)
@@ -629,27 +702,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             
         }
 
-        // Function to show and return the login menu
-        public Dictionary<string, string> ShowLoginMenu()
-        {
-            Console.Clear();
-
-            RSGymUtility.WriteTitle("RSGymPT Login Menu", "", "\n\n");
-            RSGymUtility.WriteMessage($"Digite o número da opção desejada e aperte 'Enter'", "", "\n\n");
-
-            Dictionary<string, string> loginMenu = new Dictionary<string, string>()
-            {
-                {"1", "Login" },
-                {"2", "Sair" }
-            };
-
-            foreach (KeyValuePair<string, string> item in loginMenu)
-            {
-                RSGymUtility.WriteMessage($"({item.Key}) - {item.Value}", "", "\n");
-            }
-
-            return loginMenu;
-        }
+        
 
         // Show RSGymPT logo message
         public void ShowLogoMessage(string status, string userName)
@@ -671,9 +724,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
         }
 
-        public void RunRSGymProgram()
-        {
-            RunLoginMenu();
-        }
+        
     }
 }
