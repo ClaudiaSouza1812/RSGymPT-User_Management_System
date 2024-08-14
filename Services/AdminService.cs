@@ -67,16 +67,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return user;
         }
 
-        public (bool, int) CheckInt(string answer)
-        {
-            int userId = 0;
-            bool isNumber;
-
-            isNumber = int.TryParse(answer, out userId);
-
-            return (isNumber, userId);
-        }
-
         public (string, string) DefineFullName()
         {
             string name, lastName;
@@ -88,19 +78,25 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 name = AskUserName();
 
-                lastName = AskUserLastName();
-
-                if (!CheckFullName(name, lastName))
+                if (!CheckName(name))
                 {
                     RSGymUtility.WriteMessage("Nome vazio, com espaço ou com caracteres inválidos", "", "\n");
                 }
                 else
                 {
-                    return (char.ToUpper(name[0]) + name.Substring(1), char.ToUpper(lastName[0]) + lastName.Substring(1));
-                }
+                    lastName = AskUserLastName();
 
+                    if (!CheckName(lastName))
+                    {
+                        RSGymUtility.WriteMessage("Nome vazio, com espaço ou com caracteres inválidos", "", "\n");
+                    }
+                    else
+                    {
+                        return (char.ToUpper(name[0]) + name.Substring(1), char.ToUpper(lastName[0]) + lastName.Substring(1));
+                    }
+                }
             } while (KeepGoing());
-            
+
             return (string.Empty, string.Empty);
         }
 
@@ -110,7 +106,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
             RSGymUtility.WriteTitle("RSGymPT Menu - Nome de Utilizador", "", "\n\n");
 
-            RSGymUtility.WriteMessage("Insira o nome do utilizador: ", "", "\n");
+            RSGymUtility.WriteMessage("Insira o primeiro nome do utilizador: ", "", "\n");
 
             string name = Console.ReadLine().ToLower();
             return name;
@@ -124,18 +120,35 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return lastName;
         }
 
-        public bool CheckFullName(string name, string lastName)
+        public bool CheckName(string name)
         {
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(lastName))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return false;
             }
-            if (name.Any(c => char.IsDigit(c) || !char.IsLetter(c)) || lastName.Any(c => char.IsDigit(c) || !char.IsLetter(c)))
+            if (name.Any(c => char.IsDigit(c) || !char.IsLetter(c)))
             {
                 return false;
             }
             return true;
         }
+
+
+        //HERE***
+
+
+        public (bool, int) CheckInt(string answer)
+        {
+            int userId = 0;
+            bool isNumber;
+
+            isNumber = int.TryParse(answer, out userId);
+
+            return (isNumber, userId);
+        }
+
+
+        
 
         
         public string DefineNif()
@@ -171,7 +184,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     {
                         RSGymUtility.WriteMessage($"NIF já cadastrado para utilizador {user.FullName}, (Id): {user.Id}.", "\n","\n");
                     }
-                    
                 }
 
             } while (KeepGoing());

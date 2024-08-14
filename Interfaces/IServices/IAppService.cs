@@ -22,7 +22,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         Dictionary<int, string> ShowAdminMainMenu();
         Dictionary<int, string> ShowPowerUserMainMenu();
         Dictionary<int, string> ShowSimpleUserMainMenu();
-        void ShowLogoMessage(string status, string userName);
+        void ShowLogoMessage(string status);
 
         void RunAdminMainMenu();
         void RunAdminSubmenu(string menuAction);

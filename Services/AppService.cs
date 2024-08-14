@@ -52,7 +52,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 if (loginAction == "Sair")
                 {
                     ShowLogo("end");
-                    return;
+                    break;
                 }
 
                 if (loginAction == "Login")
@@ -71,6 +71,28 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 RunMainMenu();
             }
 
+        }
+
+        // Function to show and return the login menu
+        public Dictionary<string, string> ShowLoginMenu()
+        {
+            Console.Clear();
+
+            RSGymUtility.WriteTitle("RSGymPT Login Menu", "", "\n\n");
+            RSGymUtility.WriteMessage($"Digite o número da opção desejada e aperte 'Enter'", "", "\n\n");
+
+            Dictionary<string, string> loginMenu = new Dictionary<string, string>()
+            {
+                {"1", "Login" },
+                {"2", "Sair" }
+            };
+
+            foreach (KeyValuePair<string, string> item in loginMenu)
+            {
+                RSGymUtility.WriteMessage($"({item.Key}) - {item.Value}", "", "\n");
+            }
+
+            return loginMenu;
         }
 
         // Get user menu number choice
@@ -99,28 +121,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return menuNumber;
         }
 
-        // Validate the login menu
-        public string ValidateLoginMenu(Dictionary<string, string> loginMenu, int key)
-        {
-            string action;
-            bool status;
-
-            status = loginMenu.TryGetValue(key.ToString(), out action);
-
-            if (status)
-            {
-                return action;
-            }
-
-            RSGymUtility.WriteMessage($"Escolha um número válido.", "\n", "\n");
-
-            RSGymUtility.PauseConsole();
-
-            return string.Empty;
-        }
-
-        //HERE
-
         // Show the chosen menu
         public void ShowMenu(string menu)
         {
@@ -142,26 +142,89 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
         }
 
-        // Function to show and return the login menu
-        public Dictionary<string, string> ShowLoginMenu()
+        // Validate the login menu
+        public string ValidateLoginMenu(Dictionary<string, string> loginMenu, int key)
+        {
+            string action;
+            bool status;
+
+            status = loginMenu.TryGetValue(key.ToString(), out action);
+
+            if (status)
+            {
+                return action;
+            }
+
+            RSGymUtility.WriteMessage($"Escolha um número válido.", "\n", "\n");
+
+            RSGymUtility.PauseConsole();
+
+            return string.Empty;
+        }
+
+        // Show RSGymPT logo
+        public void ShowLogo(string status)
         {
             Console.Clear();
 
-            RSGymUtility.WriteTitle("RSGymPT Login Menu", "", "\n\n");
-            RSGymUtility.WriteMessage($"Digite o número da opção desejada e aperte 'Enter'", "", "\n\n");
+            RSGymUtility.WriteTitle("RSGymPT APP", "", "\n\n");
 
-            Dictionary<string, string> loginMenu = new Dictionary<string, string>()
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            string[] logo =
             {
-                {"1", "Login" },
-                {"2", "Sair" }
+                "-------------------------------",
+                "|  _____    _____   ___       |",
+                "| | |   |  |  ___| | _/|      |",
+                "| | |___|  | |___  |___|      |",
+                "| | |\\\\    |___  |  | |       |",
+                "| | | \\\\    ___| |  | |´ ' `\\ |",
+                "| |_|  \\\\  |_____|  |_______/ |",
+                "|                             |",
+                "-------------------------------"
             };
 
-            foreach (KeyValuePair<string, string> item in loginMenu)
+            foreach (string item in logo)
             {
-                RSGymUtility.WriteMessage($"({item.Key}) - {item.Value}", "", "\n");
+                RSGymUtility.WriteMessage($"{item}\n");
+            }
+            UpdateScreenUserType();
+            ShowLogoMessage(status);
+
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static string UpdateScreenUserType()
+        {
+            if (_currentUser == null)
+            {
+                return currentUser = "Convidado";
+            }
+            else
+            {
+                return currentUser = _currentUser.UserType.ToString();
             }
 
-            return loginMenu;
+        }
+
+        // Show RSGymPT logo message
+        public void ShowLogoMessage(string status)
+        {
+            string message01 = $"Bem vindo(a)! {_currentUser.Name}!";
+            string message02 = $"{_currentUser.Name}, até a próxima!";
+
+            if (status == "begin")
+            {
+                RSGymUtility.WriteMessage($"{message01.PadLeft(15 - (message01.Length / 2) + message01.Length, ' ')}", "", "\n\n");
+
+                RSGymUtility.PauseConsole();
+            }
+            else
+            {
+                RSGymUtility.WriteMessage($"{message02.PadLeft(15 - (message02.Length / 2) + message02.Length, ' ')}", "", "\n");
+
+                RSGymUtility.PauseConsole();
+            }
         }
 
         public void RunMainMenu()
@@ -180,6 +243,146 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
 
         }
+
+        public void RunAdminMainMenu()
+        {
+            (int, string) menuAction;
+            do
+            {
+                // Show the main menu
+                Dictionary<int, string> adminMainMenu = ShowAdminMainMenu();
+
+                int menuKey;
+
+                // Run the main menu
+
+                menuKey = GetUserChoice("main");
+                menuAction = ValidateAdminMainMenu(adminMainMenu, menuKey);
+
+                if (menuAction.Item2 == "Terminar")
+                {
+                    break;
+                }
+
+                if (!string.IsNullOrEmpty(menuAction.Item2))
+                {
+                    RunAdminSubmenu(menuAction.Item2);
+                }
+                else
+                {
+                    RSGymUtility.WriteMessage("Digite um numero válido.", "\n", "\n");
+                    RSGymUtility.PauseConsole();
+                }
+            } while (menuAction.Item2 != "Terminar");
+
+            RunLoginMenu();
+
+        }
+
+        public Dictionary<int, string> ShowAdminMainMenu()
+        {
+            Dictionary<int, string> mainMenu;
+
+            Console.Clear();
+
+            RSGymUtility.WriteTitle($"RSGymPT Menu de navegação", "", "\n\n");
+
+            RSGymUtility.WriteMessage("Digite o número da opção \ndesejada e aperte 'Enter'", "", "\n\n");
+
+            mainMenu = new Dictionary<int, string>()
+                    {
+                        {1, "Registar" },
+                        {2, "Alterar" },
+                        {3, "Pesquisar" },
+                        {4, "Listar" },
+                        {5, "Terminar" }
+                    };
+            foreach (KeyValuePair<int, string> menu in mainMenu)
+            {
+                RSGymUtility.WriteMessage($"({menu.Key}) - {menu.Value}", "", "\n");
+            };
+
+            return mainMenu;
+        }
+
+        // Validate the main menu
+        internal (int, string) ValidateAdminMainMenu(Dictionary<int, string> adminMainMenu, int menuKey)
+        {
+            foreach (KeyValuePair<int, string> menu in adminMainMenu)
+            {
+                if (menu.Key == menuKey)
+                {
+                    return (menu.Key, menu.Value);
+                }
+            }
+
+            return (-1, string.Empty);
+        }
+
+        // Method to run the admin submenu
+        public void RunAdminSubmenu(string menuAction)
+        {
+            switch (menuAction)
+            {
+                case "Registar":
+                    do
+                    {
+                        user = _adminService.CreateUser();
+                        if (user != null)
+                        {
+                            _adminRepository.AddUser(user);
+
+                            RSGymUtility.WriteMessage("Utilizador criado com sucesso.", "\n", "\n");
+                            RSGymUtility.PauseConsole();
+                            RunMainMenu();
+                        }
+                        else
+                        {
+                            RSGymUtility.WriteMessage("Nenhum utilizador criado.", "\n", "\n");
+                            RSGymUtility.PauseConsole();
+                            RunMainMenu();
+                        }
+                    } while (_adminService.KeepGoing());
+
+                    break;
+                case "Alterar":
+                    user = _adminService.GetUserToChange();
+                    if (user != null)
+                    {
+                        RunAdminChangeMenu();
+                    }
+                    else
+                    {
+                        RunAdminMainMenu();
+                    }
+                    break;
+                case "Pesquisar":
+
+                    RunAdminSearchMenu();
+
+                    RunAdminMainMenu();
+
+                    break;
+                case "Listar":
+                    _adminService.ListAllUsers();
+                    RSGymUtility.PauseConsole();
+                    RunAdminMainMenu();
+                    break;
+
+                case "Terminar":
+                    ShowLogo("end");
+                    break;
+            }
+        }
+
+
+        //HERE***
+
+
+
+
+
+
 
         public void RunSimpleUserMainMenu()
         {
@@ -253,41 +456,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         }
 
-        public void RunAdminMainMenu()
-        {
-            (int, string) menuAction;
-            do
-            {
-                // Show the main menu
-                Dictionary<int, string> adminMainMenu = ShowAdminMainMenu();
-
-                int menuKey;
-                
-
-                // Run the main menu
-
-                menuKey = GetUserChoice("main");
-                menuAction = ValidateAdminMainMenu(adminMainMenu, menuKey);
-
-                if (menuAction.Item2 == "Terminar")
-                {
-                    break;
-                }
-
-                if (!string.IsNullOrEmpty(menuAction.Item2))
-                {
-                    RunAdminSubmenu(menuAction.Item2);
-                }
-                else
-                {
-                    RSGymUtility.WriteMessage("Digite um numero válido.", "\n", "\n");
-                    RSGymUtility.PauseConsole();
-                }
-            } while (menuAction.Item2 != "Terminar");
-            
-            RunLoginMenu();
-            
-        }
+        
 
         public void RunAdminChangeMenu()
         {
@@ -325,61 +494,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             */
         }
 
-        // Method to run the order submenu
-        public void RunAdminSubmenu(string menuAction)
-        {
-            switch (menuAction)
-            {
-                case "Registar":
-                    do
-                    {
-                        user = _adminService.CreateUser();
-                        if (user != null)
-                        {
-                            _adminRepository.AddUser(user);
-
-                            RSGymUtility.WriteMessage("Utilizador criado com sucesso.", "\n", "\n");
-                            RSGymUtility.PauseConsole();
-                            RunMainMenu();
-                        }
-                        else
-                        {
-                            RSGymUtility.WriteMessage("Nenhum utilizador criado.", "\n", "\n");
-                            RSGymUtility.PauseConsole();
-                            RunMainMenu();
-                        }
-                    } while (_adminService.KeepGoing());
-                    
-                    break;
-                case "Alterar":
-                    user = _adminService.GetUserToChange();
-                    if (user != null)
-                    {
-                        RunAdminChangeMenu();
-                    }
-                    else
-                    {
-                        RunAdminMainMenu();
-                    }
-                    break;
-                case "Pesquisar":
-                    
-                    RunAdminSearchMenu();
-                    
-                    RunAdminMainMenu();
-                    
-                    break;
-                case "Listar":
-                    _adminService.ListAllUsers();
-                    RSGymUtility.PauseConsole();
-                    RunAdminMainMenu();
-                    break;
-                
-                case "Terminar":
-                    ShowLogo("end");
-                    break; 
-            }
-        }
+        
 
         public void RunAdminSearchMenu()
         {
@@ -487,19 +602,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         }
                    
 
-        // Validate the main menu
-        internal (int, string) ValidateAdminMainMenu(Dictionary<int, string> adminMainMenu, int menuKey)
-        {
-            foreach (KeyValuePair<int, string> menu in adminMainMenu)
-            {
-                if (menu.Key == menuKey)
-                {
-                    return (menu.Key, menu.Value);
-                }
-            }
-
-            return (-1, string.Empty);
-        }
+        
 
         // Validate the change menu
         internal (int, string) ValidateAdminChangeMenu(Dictionary<int, string> adminChangeMenu, int menuKey)
@@ -583,31 +686,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return mainMenu;
         }
 
-        public Dictionary<int, string> ShowAdminMainMenu()
-        {
-            Dictionary<int, string> mainMenu;
-
-            Console.Clear();
-
-            RSGymUtility.WriteTitle($"RSGymPT Menu de navegação", "", "\n\n");
-
-            RSGymUtility.WriteMessage("Digite o número da \nopção desejada e aperte 'Enter'", "", "\n\n");
-
-            mainMenu = new Dictionary<int, string>()
-                    {
-                        {1, "Registar" },
-                        {2, "Alterar" },
-                        {3, "Pesquisar" },
-                        {4, "Listar" },
-                        {5, "Terminar" }
-                    };
-            foreach (KeyValuePair<int, string> menu in mainMenu)
-            {
-                RSGymUtility.WriteMessage($"({menu.Key}) - {menu.Value}", "", "\n");
-            };
-
-            return mainMenu;
-        }
+        
 
         public Dictionary<int, string> ShowAdminChangeMenu()
         {
@@ -654,76 +733,5 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
             return searchMenu;
         }
-
-        
-
-        // Show RSGymPT logo
-        public void ShowLogo(string status)
-        {
-            Console.Clear();
-
-            RSGymUtility.WriteTitle("RSGymPT APP", "", "\n\n");
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
-            string[] logo =
-            {
-                "-------------------------------",
-                "|  _____    _____   ___       |",
-                "| | |   |  |  ___| | _/|      |",
-                "| | |___|  | |___  |___|      |",
-                "| | |\\\\    |___  |  | |       |",
-                "| | | \\\\    ___| |  | |´ ' `\\ |",
-                "| |_|  \\\\  |_____|  |_______/ |",
-                "|                             |",
-                "-------------------------------"
-            };
-
-            foreach (string item in logo)
-            {
-                RSGymUtility.WriteMessage($"{item}\n");
-            }
-            UpdateScreenUserType();
-            ShowLogoMessage(status, currentUser);
-
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public static string UpdateScreenUserType()
-        {
-            if (_currentUser == null)
-            {
-                return currentUser = "Convidado";
-            }
-            else
-            {
-                return currentUser = _currentUser.UserType.ToString(); 
-            }
-            
-        }
-
-        
-
-        // Show RSGymPT logo message
-        public void ShowLogoMessage(string status, string userName)
-        {
-            string message01 = $"Bem vindo(a)! {userName}!";
-            string message02 = $"{userName}, até a próxima!";
-
-            if (status == "begin")
-            {
-                RSGymUtility.WriteMessage($"{message01.PadLeft(15 - (message01.Length / 2) + message01.Length, ' ')}", "", "\n\n");
-
-                RSGymUtility.PauseConsole();
-            }
-            else
-            {
-                RSGymUtility.WriteMessage($"{message02.PadLeft(15 - (message02.Length / 2) + message02.Length, ' ')}", "", "\n");
-
-                RSGymUtility.PauseConsole();
-            }
-        }
-
-        
     }
 }

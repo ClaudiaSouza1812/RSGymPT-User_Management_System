@@ -19,6 +19,13 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             _users = new List<User>();
         }
 
+        public List<User> GetAllUsers()
+        {
+            return _users;
+        }
+
+        //HERE***
+
         public void AddUser(User user)
         {
             _users.Add(user);
@@ -34,10 +41,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             return _users.Where(u => u.Name.ToLower() == name.ToLower()).ToList();
         }
 
-        public List<User> GetAllUsers()
-        {
-            return _users;
-        }
+        
 
         public void UpdateUser(User user, string propertyName, string newValue)
         {

@@ -26,7 +26,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         EnumUserType DefineUserType();
 
 
-        bool CheckFullName(string name, string lastName);
+        bool CheckName(string name);
         bool CheckEmail(string email);
         bool CheckUsername(string userName);
         bool CheckPassword(string password);
