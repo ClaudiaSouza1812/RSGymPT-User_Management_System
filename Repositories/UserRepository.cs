@@ -31,7 +31,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
         {
             Console.Clear();
 
-            rSGymUtility.WriteTitle("Lista de Utilizadores", "\n", "\n\n");
+            RSGymUtility.WriteTitle("Lista de Utilizadores", "\n", "\n\n");
 
             
 

@@ -23,7 +23,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             _adminRepository = adminRepository;
         }
 
-        RSGymUtility rSGymUtility = new RSGymUtility();
 
         public User CreateUser()
         {
@@ -68,54 +67,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return user;
         }
 
-        public User GetUserToChange()
-        {
-            User user = new User();
+        
 
-            do
-            {
-                Console.Clear();
-
-                rSGymUtility.WriteTitle($"Alterar", "", "\n\n");
-
-                int userId = AskUserId();
-
-                user = _adminRepository.GetUserById(userId);
-
-                if (user != null)
-                {
-                    return user;
-                }
-
-                RSGymUtility.WriteMessage("Usuário Inexistente", "", "\n");
-
-            } while (KeepGoing());
-
-            return null;
-        }
-
-        // Admin service helper function to ask and return the user Id
-        internal int AskUserId()
-        {
-            bool isNumber;
-            int userId;
-            do
-            {
-                Console.Clear();
-
-                rSGymUtility.WriteTitle($"Alterar", "", "\n\n");
-
-                ListAllUsers();
-
-                RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n\n", "");
-                string answer = Console.ReadLine();
-
-                (isNumber, userId) = CheckInt(answer);
-
-            } while (!isNumber || userId == 0);
-            
-            return userId;
-        }
+        
 
         internal (bool, int) CheckInt(string answer)
         {
@@ -153,7 +107,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
-                rSGymUtility.WriteTitle($"RSGymPT Menu de navegação", "", "\n\n");
+                RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
                 RSGymUtility.WriteMessage("Insira o nome do utilizador: ", "", "\n");
 
@@ -198,6 +152,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
+                RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
+
                 RSGymUtility.WriteMessage("Insira o NIF do utilizador com 9 números: ", "", "\n");
 
                 string answer = Console.ReadLine().ToLower();
@@ -226,11 +182,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
-                rSGymUtility.WriteTitle($"RSGymPT Menu de Definição", "", "\n\n");
+                RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
                 RSGymUtility.WriteMessage("Exemplo de email válido: teste@teste.com", "", "\n");
 
-                RSGymUtility.WriteMessage("Insira o email do utilizador: ", "", "\n");
+                RSGymUtility.WriteMessage("Insira o email do utilizador: ", "\n", "\n");
 
                 email = Console.ReadLine().ToLower();
 
@@ -271,6 +227,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 Console.Clear();
 
+                RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
+
                 RSGymUtility.WriteMessage("Defina o username com 6 caracteres e sem espaços.", "\n", "\n");
 
                 RSGymUtility.WriteMessage("Username: ", "", "\n");
@@ -296,6 +254,10 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             string password;
             do
             {
+                Console.Clear();
+
+                RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
+
                 RSGymUtility.WriteMessage("Defina a password com 6 caracteres e sem espaços.", "\n", "\n");
 
                 RSGymUtility.WriteMessage("Password: ", "", "\n");
@@ -322,12 +284,16 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             EnumUserType userType = new EnumUserType();
             do
             {
+                Console.Clear();
+
+                RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
+
                 foreach (EnumUserType type in Enum.GetValues(typeof(EnumUserType)))
                 {
                     RSGymUtility.WriteMessage($"({(int)type}) - ({type})", "", "\n");
                 }
 
-                RSGymUtility.WriteMessage("Digite um dos numeros de usuário acima.", "\n", "\n");
+                RSGymUtility.WriteMessage("Digite um dos numeros de tipo de usuário acima.", "\n", "\n");
 
                 RSGymUtility.WriteMessage("Numero do usuário: ", "", "\n");
 
@@ -386,6 +352,60 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return true;
         }
 
+        // Admin service helper function to ask and return the user Id
+        internal int AskUserId()
+        {
+            bool isNumber;
+            int userId = 0;
+            do
+            {
+                Console.Clear();
+
+                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+
+                ListAllUsers();
+
+                RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n\n", "");
+                string answer = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(answer))
+                {
+                    break;
+                }
+
+                (isNumber, userId) = CheckInt(answer);
+
+            } while (!isNumber || userId == 0);
+
+            return userId;
+        }
+
+        public User GetUserToChange()
+        {
+            User user = new User();
+
+            do
+            {
+                Console.Clear();
+
+                RSGymUtility.WriteTitle($"Alterar", "", "\n\n");
+
+                int userId = AskUserId();
+
+                user = _adminRepository.GetUserById(userId);
+
+                if (user != null)
+                {
+                    return user;
+                }
+
+                RSGymUtility.WriteMessage("Usuário Inexistente", "", "\n");
+
+            } while (KeepGoing());
+
+            return null;
+        }
+
         public void ChangeUser(User user, string property)
         {
             switch (property)
@@ -396,6 +416,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     if (user.Email != string.Empty)
                     {
                         _adminRepository.UpdateUser(user, property, user.Email);
+                        RSGymUtility.WriteMessage("Email alterado com sucesso.", "\n", "\n");
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
                     }
                     break;
                 case "Username":
