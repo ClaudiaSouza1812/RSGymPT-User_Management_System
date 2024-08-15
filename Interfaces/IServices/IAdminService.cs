@@ -36,6 +36,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         bool KeepGoing();
         void ListUserById(User user);
         void ListUsers(List<User> users);
+        void ListUserToChange(User user);
 
     }
 }

@@ -242,15 +242,15 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
-                RSGymUtility.WriteMessage("Defina o username com 6 caracteres e sem espaços.", "\n", "\n");
+                RSGymUtility.WriteMessage("Defina o username com 6 caracteres e sem espaços.", "\n", "");
 
-                RSGymUtility.WriteMessage("Username: ", "", "\n");
+                RSGymUtility.WriteMessage("Username: ", "\n", "\n");
 
                 userName = Console.ReadLine().ToLower();
 
                 if (!CheckUsername(userName))
                 {
-                    RSGymUtility.WriteMessage("Digite um username válido.", "\n");
+                    RSGymUtility.WriteMessage("Digite um username válido.", "", "\n");
                 }
                 else
                 {
@@ -303,8 +303,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public User GetUserToChange()
         {
-            User user = new User();
-
+            User user = null;
+            bool isNumber;
+            int userId = 0;
             do
             {
                 Console.Clear();
@@ -313,11 +314,18 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 ListAllUsers();
 
-                RSGymUtility.PauseConsole();
+                RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n", "\n");
+                string answer = Console.ReadLine();
 
-                int userId = AskUserId();
+                if (!string.IsNullOrEmpty(answer))
+                {
+                    (isNumber, userId) = CheckInt(answer);
+                }
 
-                user = _adminRepository.GetUserById(userId);
+                if (userId > 0)
+                {
+                    user = _adminRepository.GetUserById(userId);
+                }
 
                 if (user != null)
                 {
@@ -335,7 +343,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         {
             Console.Clear();
 
-            RSGymUtility.WriteTitle("Lista de Utilizadores", "", "\n\n");
+            RSGymUtility.WriteTitle("Lista de Utilizadores", "", "\n");
 
             List<User> users = _adminRepository.GetAllUsers();
 
@@ -356,7 +364,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
             RSGymUtility.WriteTitle("RSGymPT Menu - Utilizador Id", "", "\n\n");
 
-            RSGymUtility.WriteMessage("Digite o Id do utilizador: ", "\n", "\n");
+            RSGymUtility.WriteMessage("Digite o Id do utilizador: ", "", "\n");
             string answer = Console.ReadLine();
 
             if (!string.IsNullOrEmpty(answer))
@@ -448,7 +456,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteMessage("Numero do usuário: ", "", "\n");
 
-                string answer = Console.ReadLine().ToLower();
+                string answer = Console.ReadLine();
 
                 bool isNumber = int.TryParse(answer, out int number);
 
@@ -526,6 +534,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 RSGymUtility.WriteMessage($"{user.FullUser}", "", "\n");
             }   
+        }
+
+        public void ListUserToChange(User user)
+        {
+            RSGymUtility.WriteMessage($"{user.FullUser}", "", "\n");
         }
     }
 }

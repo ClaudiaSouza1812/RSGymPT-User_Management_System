@@ -27,7 +27,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
             string formattedTitle = $"{title} - {CurrentUser}";
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"{beginTitle}{new string('-', 44)}\n{formattedTitle.ToUpper().PadLeft(22 - title.Length / 2 + title.Length, ' ')}\n{new string('-', 44)}{endTitle}");
+            Console.Write($"{beginTitle}{new string('-', 44)}\n{formattedTitle.ToUpper().PadLeft(22 - formattedTitle.Length / 2 + formattedTitle.Length, ' ')}\n{new string('-', 44)}{endTitle}");
             Console.ForegroundColor = ConsoleColor.White;   // Reset original color
         }
 

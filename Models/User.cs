@@ -26,7 +26,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
         #endregion
         internal virtual string FullName => $"{Name} {LastName}";
 
-        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {FullName}\n(NIF): {NIF}\n(Email): {Email}\n(Nome de utilizador): {Username}\n(Usuário): {UserType}";
+        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {FullName}\n(NIF): {NIF}\n(Email): {Email}\n(Usuário): {UserType}";
 
         public User() 
         {
