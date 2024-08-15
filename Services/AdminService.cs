@@ -27,42 +27,51 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public User CreateUser()
         {
-            User user = new User();
+            string name, lastName;
 
-            (user.Name, user.LastName) = DefineFullName();
+            (name, lastName) = DefineFullName();
 
-            if (string.IsNullOrEmpty(user.Name))
+            if (string.IsNullOrEmpty(name))
             {
                 return null;
             }
             
-            user.NIF = DefineNif();
+            string nif = DefineNif();
 
-            if (string.IsNullOrEmpty(user.NIF))
+            if (string.IsNullOrEmpty(nif))
             {
                 return null;
             }
 
-            user.Email = DefineEmail();
+            string email = DefineEmail();
 
-            if (string.IsNullOrEmpty(user.Email))
+            if (string.IsNullOrEmpty(email))
             {
                 return null;
             }
 
-            user.Username = DefineUsername();
+            string username = DefineUsername();
 
-            if (string.IsNullOrEmpty(user.Username))
+            if (string.IsNullOrEmpty(username))
             {
                 return null;
             }
 
-            user.Password = DefinePassword();
+            string password = DefinePassword();
 
-            if (string.IsNullOrEmpty(user.Password))
+            if (string.IsNullOrEmpty(password))
             {
                 return null;
             }
+
+            User user = new User()
+            { 
+                Name = name,
+                LastName = lastName,
+                Email = email,
+                Username = username,
+                Password = password
+            };
 
             return user;
         }

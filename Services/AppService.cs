@@ -265,7 +265,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     RunSimpleUserMainMenu();
                     break;
             }
-
         }
 
         public void RunAdminMainMenu()
@@ -350,24 +349,22 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             switch (menuAction)
             {
                 case "Registar":
-                    do
+                    
+                    user = _adminService.CreateUser();
+                    if (user != null)
                     {
-                        user = _adminService.CreateUser();
-                        if (user != null)
-                        {
-                            _adminRepository.AddUser(user);
+                        _adminRepository.AddUser(user);
 
-                            RSGymUtility.WriteMessage("Utilizador criado com sucesso.", "\n", "\n");
-                            RSGymUtility.PauseConsole();
-                            RunMainMenu();
-                        }
-                        else
-                        {
-                            RSGymUtility.WriteMessage("Nenhum utilizador criado.", "\n", "\n");
-                            RSGymUtility.PauseConsole();
-                            RunMainMenu();
-                        }
-                    } while (_adminService.KeepGoing());
+                        RSGymUtility.WriteMessage("Utilizador criado com sucesso.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
+                        RunAdminMainMenu();
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage("Nenhum utilizador criado.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
+                        RunAdminMainMenu();
+                    }
 
                     break;
                 case "Alterar":
@@ -382,23 +379,16 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     }
                     break;
                 case "Pesquisar":
-
                     RunSearchMenu();
-
                     RunAdminMainMenu();
-
                     break;
                 case "Listar":
                     _adminService.ListAllUsers();
                     RSGymUtility.PauseConsole();
                     RunAdminMainMenu();
                     break;
-
                 case "Terminar":
                     ShowLogo("end");
-                    break;
-                default:
-                    menuAction = "Terminar";
                     break;
             }
         }
@@ -452,33 +442,28 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             do
             {
                 // Show the main menu
-                Dictionary<int, string> adminMainMenu = ShowPowerUserMainMenu();
+                Dictionary<int, string> simplUserMainMenu = ShowSimpleUserMainMenu();
 
                 int menuKey;
-
 
                 // Run the main menu
 
                 menuKey = GetUserChoice("main");
-                menuAction = ValidateMenu(adminMainMenu, menuKey);
+                menuAction = ValidateMenu(simplUserMainMenu, menuKey);
 
                 if (menuAction.Item2 == "Terminar")
                 {
+                    ShowLogo("end");
                     break;
                 }
 
                 if (!string.IsNullOrEmpty(menuAction.Item2))
                 {
-                    RunAdminSubmenu(menuAction.Item2);
-                }
-                else
-                {
-                    RSGymUtility.WriteMessage("Digite um numero válido.", "\n", "\n");
+                    _adminService.ListAllUsers();
                     RSGymUtility.PauseConsole();
                 }
+                
             } while (menuAction.Item2 != "Terminar");
-
-
         }
 
         public void RunPowerUserMainMenu()
@@ -499,6 +484,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 if (menuAction.Item2 == "Terminar")
                 {
+                    ShowLogo("end");
                     break;
                 }
 
@@ -512,7 +498,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     {
                         _adminService.ListAllUsers();
                         RSGymUtility.PauseConsole();
-                        RunPowerUserMainMenu();
                     }
                 }
                 else
@@ -599,26 +584,28 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         public void SearchByName()
         {
             List<User> users;
-            
-            string name = _adminService.AskUserName();
-
-            if (!string.IsNullOrEmpty(name))
+            do
             {
-                users = _adminRepository.GetUsersByName(name);
+                string name = _adminService.AskUserName();
 
-                if (users.Any())
+                if (!string.IsNullOrEmpty(name))
                 {
-                    _adminService.ListUsers(users);
+                    users = _adminRepository.GetUsersByName(name);
+
+                    if (users.Any())
+                    {
+                        _adminService.ListUsers(users);
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage("Utilizador inexistente", "\n", "\n");
+                    }
                 }
                 else
                 {
-                    RSGymUtility.WriteMessage("Nome inexistente", "\n", "\n");
+                    RSGymUtility.WriteMessage("Utilizador inexistente", "\n", "\n");
                 }
-            }
-            else
-            {
-                RSGymUtility.WriteMessage("Nome inexistente", "\n", "\n");
-            }
+            } while (_adminService.KeepGoing());
         }
 
         
