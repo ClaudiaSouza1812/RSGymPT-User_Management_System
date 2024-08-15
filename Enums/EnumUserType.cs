@@ -10,6 +10,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums
     {
         Admin = 0,
         PowerUser = 1,
-        SimpleUser = 2
+        SimpleUser = 2,
+        Convidado = 3
     }
 }

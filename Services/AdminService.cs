@@ -458,6 +458,10 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 foreach (EnumUserType type in Enum.GetValues(typeof(EnumUserType)))
                 {
+                    if ((int)type > 2)
+                    {
+                        break;
+                    }
                     RSGymUtility.WriteMessage($"({(int)type}) - ({type})", "", "\n");
                 }
 

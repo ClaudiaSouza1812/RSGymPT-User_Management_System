@@ -51,7 +51,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 if (loginAction == "Sair")
                 {
-                    ShowLogo("end");
                     return;
                 }
 
@@ -91,7 +90,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 RSGymUtility.WriteMessage($"({item.Key}) - {item.Value}", "", "\n");
             }
-
             return loginMenu;
         }
 
@@ -264,6 +262,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 case EnumUserType.SimpleUser:
                     RunSimpleUserMainMenu();
                     break;
+                default:
+                    RunLoginMenu();
+                    break;
             }
         }
 
@@ -285,7 +286,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 if (menuAction.Item2 == "Terminar")
                 {
                     ShowLogo("end");
-                    return;
+                    break;
                 }
 
                 if (!string.IsNullOrEmpty(menuAction.Item2))
@@ -300,8 +301,87 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 }
             } while (menuAction.Item2 != "Terminar");
 
-
+            _currentUser.UserType = EnumUserType.Convidado;
+            RunLoginMenu();
         }
+
+        public void RunPowerUserMainMenu()
+        {
+            (int, string) menuAction;
+            do
+            {
+                // Show the main menu
+                Dictionary<int, string> powerUserMainMenu = ShowPowerUserMainMenu();
+
+                int menuKey;
+
+
+                // Run the main menu
+
+                menuKey = GetUserChoice("main");
+                menuAction = ValidateMenu(powerUserMainMenu, menuKey);
+
+                if (menuAction.Item2 == "Terminar")
+                {
+                    ShowLogo("end");
+                    break;
+                }
+
+                if (!string.IsNullOrEmpty(menuAction.Item2))
+                {
+                    if (menuAction.Item2 == "Pesquisar")
+                    {
+                        SearchByName();
+                    }
+                    else if (menuAction.Item2 == "Listar")
+                    {
+                        _adminService.ListAllUsers();
+                        RSGymUtility.PauseConsole();
+                    }
+                }
+                else
+                {
+                    RSGymUtility.WriteMessage("Digite um numero válido.", "\n", "\n");
+                    RSGymUtility.PauseConsole();
+                }
+            } while (menuAction.Item2 != "Terminar");
+            _currentUser.UserType = EnumUserType.Convidado;
+            RunLoginMenu();
+        }
+
+        public void RunSimpleUserMainMenu()
+        {
+            (int, string) menuAction;
+            do
+            {
+                // Show the main menu
+                Dictionary<int, string> simplUserMainMenu = ShowSimpleUserMainMenu();
+
+                int menuKey;
+
+                // Run the main menu
+
+                menuKey = GetUserChoice("main");
+                menuAction = ValidateMenu(simplUserMainMenu, menuKey);
+
+                if (menuAction.Item2 == "Terminar")
+                {
+                    ShowLogo("end");
+                    break;
+                }
+
+                if (!string.IsNullOrEmpty(menuAction.Item2))
+                {
+                    _adminService.ListAllUsers();
+                    RSGymUtility.PauseConsole();
+                }
+
+            } while (menuAction.Item2 != "Terminar");
+            _currentUser.UserType = EnumUserType.Convidado;
+            RunLoginMenu();
+        }
+
+        
 
         public Dictionary<int, string> ShowAdminMainMenu()
         {
@@ -436,77 +516,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
 
 
-        public void RunSimpleUserMainMenu()
-        {
-            (int, string) menuAction;
-            do
-            {
-                // Show the main menu
-                Dictionary<int, string> simplUserMainMenu = ShowSimpleUserMainMenu();
-
-                int menuKey;
-
-                // Run the main menu
-
-                menuKey = GetUserChoice("main");
-                menuAction = ValidateMenu(simplUserMainMenu, menuKey);
-
-                if (menuAction.Item2 == "Terminar")
-                {
-                    ShowLogo("end");
-                    break;
-                }
-
-                if (!string.IsNullOrEmpty(menuAction.Item2))
-                {
-                    _adminService.ListAllUsers();
-                    RSGymUtility.PauseConsole();
-                }
-                
-            } while (menuAction.Item2 != "Terminar");
-        }
-
-        public void RunPowerUserMainMenu()
-        {
-            (int, string) menuAction;
-            do
-            {
-                // Show the main menu
-                Dictionary<int, string> powerUserMainMenu = ShowPowerUserMainMenu();
-
-                int menuKey;
-
-
-                // Run the main menu
-
-                menuKey = GetUserChoice("main");
-                menuAction = ValidateMenu(powerUserMainMenu, menuKey);
-
-                if (menuAction.Item2 == "Terminar")
-                {
-                    ShowLogo("end");
-                    break;
-                }
-
-                if (!string.IsNullOrEmpty(menuAction.Item2))
-                {
-                    if (menuAction.Item2 == "Pesquisar")
-                    {
-                        SearchByName();
-                    }
-                    else if (menuAction.Item2 == "Listar")
-                    {
-                        _adminService.ListAllUsers();
-                        RSGymUtility.PauseConsole();
-                    }
-                }
-                else
-                {
-                    RSGymUtility.WriteMessage("Digite um numero válido.", "\n", "\n");
-                    RSGymUtility.PauseConsole();
-                }
-            } while (menuAction.Item2 != "Terminar");
-        }
+        
 
         
 

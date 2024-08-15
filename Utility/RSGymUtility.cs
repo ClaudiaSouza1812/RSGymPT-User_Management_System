@@ -26,7 +26,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
             CurrentUser = AppService.UpdateScreenUserType();
             string formattedTitle = $"{title} - {CurrentUser}";
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            WriteColor();
+
             Console.Write($"{beginTitle}{new string('-', 44)}\n{formattedTitle.ToUpper().PadLeft(22 - formattedTitle.Length / 2 + formattedTitle.Length, ' ')}\n{new string('-', 44)}{endTitle}");
             Console.ForegroundColor = ConsoleColor.White;   // Reset original color
         }
@@ -34,13 +35,15 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
         // Method to show a message setted with skip lines at the beginning and end of it
         public static void WriteMessage(string message, string beginMessage = "", string endMessage = "")
         {
+            WriteColor();
             Console.Write($"{beginMessage}{message}{endMessage}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         // Method to terminate the console with a stylish message
         public static void TerminateConsole()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            WriteColor();
             Console.Write("\n\nPrime qualquer tecla para terminares.");
             Console.ForegroundColor = ConsoleColor.White;
             Console.ReadKey();
@@ -50,10 +53,29 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
         // Method to pause the console
         public static void PauseConsole()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            WriteColor();
             Console.Write("\nPrime qualquer tecla para continuar.");
             Console.ForegroundColor = ConsoleColor.White;
             Console.ReadKey();
+        }
+
+        public static void WriteColor()
+        {
+            switch (CurrentUser)
+            {
+                case "Admin":
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+                case "PowerUser":
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+                case "SimpleUser":
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+            }
         }
     }
 }
