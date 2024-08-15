@@ -405,52 +405,52 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 case "Email":
                     string email = DefineEmail();
 
-                    if (email != string.Empty)
+                    if (email != string.Empty && email != user.Email)
                     {
                         _adminRepository.UpdateUser(user, property, email);
                         RSGymUtility.WriteMessage("Email alterado com sucesso.", "\n", "\n");
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou email existente.", "\n", "\n");
                     }
                     break;
                 case "Username":
                     string username = DefineUsername();
 
-                    if (username != string.Empty)
+                    if (username != string.Empty && username != user.Username)
                     {
                         _adminRepository.UpdateUser(user, property, username);
                         RSGymUtility.WriteMessage("Username alterado com sucesso.", "\n", "\n");
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou username existente", "\n", "\n");
                     }
                     break;
                 case "Password":
                     string password = DefinePassword();
 
-                    if (password != string.Empty)
+                    if (password != string.Empty && password != user.Password)
                     {
                         _adminRepository.UpdateUser(user, property, password);
                         RSGymUtility.WriteMessage("Password alterado com sucesso.", "\n", "\n");
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou password existente", "\n", "\n");
                     }
                     break;
                 case "Perfil":
                     EnumUserType userType = DefineUserType();
-                    if (userType != EnumUserType.Convidado)
+                    if (userType != EnumUserType.Convidado && userType != user.UserType)
                     {
                         _adminRepository.UpdateUser(user, property, userType.ToString());
                         RSGymUtility.WriteMessage("Tipo de usuário alterado com sucesso.", "\n", "\n");
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou perfil existente", "\n", "\n");
                     }
 
                     break;

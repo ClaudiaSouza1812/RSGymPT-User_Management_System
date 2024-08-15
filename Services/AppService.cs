@@ -77,7 +77,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         {
             Console.Clear();
 
-            RSGymUtility.WriteTitle("RSGymPT Login Menu", "", "\n\n");
+            RSGymUtility.WriteLoginTitle("RSGymPT Login Menu", "", "\n\n");
             RSGymUtility.WriteMessage($"Digite o número da opção desejada e aperte 'Enter'", "", "\n\n");
 
             Dictionary<string, string> loginMenu = new Dictionary<string, string>()
@@ -136,9 +136,13 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 {
                     ShowPowerUserMainMenu();
                 }
-                else
+                else if (_currentUser.UserType == EnumUserType.SimpleUser)
                 {
                     ShowSimpleUserMainMenu();
+                }
+                else
+                {
+                    RunLoginMenu();
                 }
 
             }
@@ -262,12 +266,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 case EnumUserType.SimpleUser:
                     RunSimpleUserMainMenu();
                     break;
-                default:
-                    RunLoginMenu();
-                    break;
             }
 
-            _currentUser.UserType = EnumUserType.Convidado;
             RunLoginMenu();
         }
 

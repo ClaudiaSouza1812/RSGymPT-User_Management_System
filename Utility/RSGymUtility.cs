@@ -32,6 +32,18 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
             Console.ForegroundColor = ConsoleColor.White;   // Reset original color
         }
 
+        // Method to show a stylish title
+        public static void WriteLoginTitle(string title, string beginTitle = "", string endTitle = "")
+        {
+            CurrentUser = "Convidado";
+            string formattedTitle = $"{title} - {CurrentUser}";
+
+            WriteColor();
+
+            Console.Write($"{beginTitle}{new string('-', 44)}\n{formattedTitle.ToUpper().PadLeft(22 - formattedTitle.Length / 2 + formattedTitle.Length, ' ')}\n{new string('-', 44)}{endTitle}");
+            Console.ForegroundColor = ConsoleColor.White;   // Reset original color
+        }
+
         // Method to show a message setted with skip lines at the beginning and end of it
         public static void WriteMessage(string message, string beginMessage = "", string endMessage = "")
         {

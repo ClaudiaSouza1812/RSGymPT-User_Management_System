@@ -28,7 +28,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public User LogInUser()
         {
-            RSGymUtility.WriteTitle("Login", "", "\n\n");
+            RSGymUtility.WriteLoginTitle("Login", "", "\n\n");
 
             string username = AskUsername();
 
