@@ -49,7 +49,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
                 case "Password":
                     userToUpdate.Password = newValue;
                     break;
-                case "UserType":
+                case "Perfil":
                     userToUpdate.UserType = Enum.TryParse(newValue, true, out EnumUserType isEnum) ? isEnum : userToUpdate.UserType;
                     break;
             }

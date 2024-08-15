@@ -26,7 +26,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
         #endregion
         internal virtual string FullName => $"{Name} {LastName}";
 
-        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {FullName}\n(NIF): {NIF}\n(Email): {Email}\n(Usuário): {UserType}";
+        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {FullName}\n(NIF): {NIF}\n(Email): {Email}\n(Perfil): {UserType}";
 
         public User() 
         {
@@ -37,7 +37,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
             Email = string.Empty;
             Username = string.Empty;
             Password = string.Empty;
-            UserType = EnumUserType.SimpleUser;
+            UserType = new EnumUserType();
         }
 
         public User(string name, string lastName, string nif, string email, string userName, string password, EnumUserType userType) : this()

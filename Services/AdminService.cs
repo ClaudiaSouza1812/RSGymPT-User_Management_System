@@ -64,13 +64,17 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 return null;
             }
 
+            EnumUserType userType = DefineUserType();
+
             User user = new User()
-            { 
+            {
                 Name = name,
                 LastName = lastName,
+                NIF = nif,
                 Email = email,
                 Username = username,
-                Password = password
+                Password = password,
+                UserType = userType
             };
 
             return user;
@@ -399,11 +403,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             switch (property)
             {
                 case "Email":
-                    user.Email = DefineEmail();
+                    string email = DefineEmail();
 
-                    if (user.Email != string.Empty)
+                    if (email != string.Empty)
                     {
-                        _adminRepository.UpdateUser(user, property, user.Email);
+                        _adminRepository.UpdateUser(user, property, email);
                         RSGymUtility.WriteMessage("Email alterado com sucesso.", "\n", "\n");
                     }
                     else
@@ -412,11 +416,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     }
                     break;
                 case "Username":
-                    user.Username = DefineUsername();
+                    string username = DefineUsername();
 
-                    if (user.Username != string.Empty)
+                    if (username != string.Empty)
                     {
-                        _adminRepository.UpdateUser(user, property, user.Username);
+                        _adminRepository.UpdateUser(user, property, username);
                         RSGymUtility.WriteMessage("Username alterado com sucesso.", "\n", "\n");
                     }
                     else
@@ -425,11 +429,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     }
                     break;
                 case "Password":
-                    user.Password = DefinePassword();
+                    string password = DefinePassword();
 
-                    if (user.Password != string.Empty)
+                    if (password != string.Empty)
                     {
-                        _adminRepository.UpdateUser(user, property, user.Password);
+                        _adminRepository.UpdateUser(user, property, password);
                         RSGymUtility.WriteMessage("Password alterado com sucesso.", "\n", "\n");
                     }
                     else
@@ -438,9 +442,17 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     }
                     break;
                 case "Perfil":
-                    user.UserType = DefineUserType();
-                    _adminRepository.UpdateUser(user, property, user.UserType.ToString());
-                    RSGymUtility.WriteMessage("Tipo de usuário alterado com sucesso.", "\n", "\n");
+                    EnumUserType userType = DefineUserType();
+                    if (userType != EnumUserType.Convidado)
+                    {
+                        _adminRepository.UpdateUser(user, property, userType.ToString());
+                        RSGymUtility.WriteMessage("Tipo de usuário alterado com sucesso.", "\n", "\n");
+                    }
+                    else
+                    {
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada.", "\n", "\n");
+                    }
+
                     break;
 
             }
@@ -449,7 +461,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public EnumUserType DefineUserType()
         {
-            EnumUserType userType = new EnumUserType();
+            EnumUserType userType = EnumUserType.Convidado;
             do
             {
                 Console.Clear();
@@ -475,8 +487,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 if (isNumber && Enum.IsDefined(typeof(EnumUserType), number))
                 {
-                    userType = (EnumUserType)number;
-                    break;
+                    return userType = (EnumUserType)number;
                 }
                 else
                 {

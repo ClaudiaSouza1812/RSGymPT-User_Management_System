@@ -266,6 +266,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     RunLoginMenu();
                     break;
             }
+
+            _currentUser.UserType = EnumUserType.Convidado;
+            RunLoginMenu();
         }
 
         public void RunAdminMainMenu()
@@ -301,8 +304,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 }
             } while (menuAction.Item2 != "Terminar");
 
-            _currentUser.UserType = EnumUserType.Convidado;
-            RunLoginMenu();
         }
 
         public void RunPowerUserMainMenu()
@@ -345,8 +346,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     RSGymUtility.PauseConsole();
                 }
             } while (menuAction.Item2 != "Terminar");
-            _currentUser.UserType = EnumUserType.Convidado;
-            RunLoginMenu();
         }
 
         public void RunSimpleUserMainMenu()
@@ -377,8 +376,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 }
 
             } while (menuAction.Item2 != "Terminar");
-            _currentUser.UserType = EnumUserType.Convidado;
-            RunLoginMenu();
         }
 
         
