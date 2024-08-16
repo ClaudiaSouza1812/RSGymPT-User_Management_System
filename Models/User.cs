@@ -21,13 +21,13 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
         public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public virtual EnumUserProfile userProfile { get; set; }
+        public virtual EnumUserProfile UserProfile { get; set; }
 
         #endregion
 
         #region Expression-bodied Properties
         internal virtual string FullName => $"{Name} {LastName}";
-        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {FullName}\n(NIF): {NIF}\n(Email): {Email}\n(Perfil): {userProfile}";
+        internal virtual string FullUser => $"(Id): {Id}\n(Nome): {FullName}\n(NIF): {NIF}\n(Email): {Email}\n(Perfil): {UserProfile}";
         #endregion
 
         #region Constructors
@@ -40,7 +40,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
             Email = string.Empty;
             Username = string.Empty;
             Password = string.Empty;
-            userProfile = new EnumUserProfile();
+            UserProfile = new EnumUserProfile();
         }
 
         public User(string name, string lastName, string nif, string email, string userName, string password, EnumUserProfile userProfile) : this()
@@ -51,7 +51,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
             Email = email;
             Username = userName;
             Password = password;
-            userProfile = userProfile;
+            UserProfile = userProfile;
         }
 
         #endregion

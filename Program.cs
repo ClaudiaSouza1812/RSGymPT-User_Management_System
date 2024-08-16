@@ -27,6 +27,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
             RSGymUtility.SetUnicodeConsole();
 
             IAdminRepository adminRepository = new AdminRepository();
+            IPowerUserService powerUserService = new PowerUserService(adminRepository);
+            ISimpleUserService simpleUserService = new SimpleUserService(adminRepository);
             IUserRepository userRepository = new UserRepository(adminRepository);
             IEncryptPassword encryptPassword = new EncryptPassword();
 
@@ -36,7 +38,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
 
             IAdminService adminService = new AdminService(adminRepository);
 
-            AppService appService = new AppService(loginService, userService, adminService, adminRepository);
+            AppService appService = new AppService(loginService, userService, adminService, adminRepository, powerUserService, simpleUserService);
 
             appService.RunRSGymProgram();
 

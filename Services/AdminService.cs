@@ -81,7 +81,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 Email = email,
                 Username = username,
                 Password = password,
-                userProfile = userProfile
+                UserProfile = userProfile
             };
 
             return user;
@@ -537,7 +537,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         public void ChangeProfile(User user, string property)
         {
             EnumUserProfile userProfile = DefineProfile();
-            if (userProfile != EnumUserProfile.Convidado && userProfile != user.userProfile)
+            if (userProfile != EnumUserProfile.Convidado && userProfile != user.UserProfile)
             {
                 _adminRepository.UpdateUser(user, property, userProfile.ToString());
                 RSGymUtility.WriteMessage("Tipo de usuário alterado com sucesso.", "\n", "\n");
@@ -603,7 +603,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 return false;
             }
-            return false;
+            return true;
         }
     }
 }

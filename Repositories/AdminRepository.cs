@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
 {
-    public class AdminRepository : AdminUser, IAdminRepository 
+    public class AdminRepository : IAdminRepository 
     {
         private readonly List<User> _users;
         public AdminRepository()
@@ -49,7 +49,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
                     userToUpdate.Password = newValue;
                     break;
                 case "Perfil":
-                    userToUpdate.userProfile = Enum.TryParse(newValue, true, out EnumUserProfile isEnum) ? isEnum : userToUpdate.userProfile;
+                    userToUpdate.UserProfile = Enum.TryParse(newValue, true, out EnumUserProfile isEnum) ? isEnum : userToUpdate.UserProfile;
                     break;
             }
         }

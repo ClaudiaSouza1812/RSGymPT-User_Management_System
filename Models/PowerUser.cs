@@ -11,7 +11,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
 {
     internal class PowerUser : User, IPowerUser
     {
-        public override EnumUserProfile userProfile { get; set; }
+        public override EnumUserProfile UserProfile { get; set; }
 
         public PowerUser() : base() { }
 

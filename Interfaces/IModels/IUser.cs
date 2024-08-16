@@ -20,7 +20,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels
         string Email { get; }
         string Username { get; }
         string Password { get; }
-        EnumUserProfile userProfile { get; }
+        EnumUserProfile UserProfile { get; }
         #endregion
 
     }

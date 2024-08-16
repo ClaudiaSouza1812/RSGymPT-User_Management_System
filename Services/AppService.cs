@@ -22,6 +22,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         private readonly IUserService _userService;
         private readonly IAdminService _adminService;
         private readonly IAdminRepository _adminRepository;
+        private readonly IPowerUserService _powerUserService;
+        private readonly ISimpleUserService _simpleUserService;
+        
         // Set and keep track of the current user
         static string currentUser = UpdateScreenuserProfile();
         #endregion
@@ -29,12 +32,15 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         #region Constructors
         public AppService() { }
 
-        public AppService(ILoginService loginService, IUserService userService, IAdminService adminService, IAdminRepository adminRepository)
+        public AppService(ILoginService loginService, IUserService userService, IAdminService adminService, IAdminRepository adminRepository, IPowerUserService powerUserService, ISimpleUserService simpleUserService)
         {
             _loginService = loginService;
             _userService = userService;
             _adminService = adminService;
             _adminRepository = adminRepository;
+            _powerUserService = powerUserService;
+            _simpleUserService = simpleUserService;
+
         }
         #endregion
 
@@ -137,7 +143,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
             else
             {
-                return currentUser = _currentUser.userProfile.ToString();
+                return currentUser = _currentUser.UserProfile.ToString();
             }
 
         }
@@ -166,7 +172,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public void ShowMenuByuserProfile()
         {
-            switch (_currentUser.userProfile)
+            switch (_currentUser.UserProfile)
             {
                 case EnumUserProfile.Admin:
                     ShowAdminMainMenu();
@@ -272,7 +278,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public void RunMainMenu()
         {
-            switch (_currentUser.userProfile)
+            switch (_currentUser.UserProfile)
             {
                 case EnumUserProfile.Admin:
                     RunAdminMainMenu();
@@ -353,7 +359,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     }
                     else if (menuAction.Item2 == "Listar")
                     {
-                        _adminService.ListAllUsers();
+                        _powerUserService.ListAllUsers();
                         RSGymUtility.PauseConsole();
                     }
                 }
@@ -388,7 +394,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 if (!string.IsNullOrEmpty(menuAction.Item2))
                 {
-                    _adminService.ListAllUsers();
+                    _simpleUserService.ListAllUsers();
                     RSGymUtility.PauseConsole();
                 }
 
