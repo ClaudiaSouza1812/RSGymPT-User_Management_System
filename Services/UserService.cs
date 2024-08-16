@@ -25,34 +25,23 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             _adminRepository = adminRepository;
         }
 
-
-        //HERE***
-
         public void CreateDefaultUsers()
         {
             List<User> defaultUsers = new List<User>()
             {
-                new AdminUser("Mel", "Magalhães", "999999999", "mel@teste.com", "melmag", _encryptPassword.EncryptPassword("123456"), Enums.EnumUserType.Admin),
-                new PowerUser("Paula", "Magalhães", "888888888", "paula@teste.com", "paumag", _encryptPassword.EncryptPassword("123456"), Enums.EnumUserType.PowerUser),
-                new SimpleUser("Claudia", "Souza", "777777777", "claudia@teste.com", "clasou", _encryptPassword.EncryptPassword("123456"), Enums.EnumUserType.SimpleUser),
+                new AdminUser("Mel", "Magalhães", "999999999", "mel@teste.com", "melmag", _encryptPassword.EncryptPassword("123456"), Enums.EnumUserProfile.Admin),
+                new PowerUser("Paula", "Magalhães", "888888888", "paula@teste.com", "paumag", _encryptPassword.EncryptPassword("123456"), Enums.EnumUserProfile.PowerUser),
+                new SimpleUser("Claudia", "Souza", "777777777", "claudia@teste.com", "clasou", _encryptPassword.EncryptPassword("123456"), Enums.EnumUserProfile.SimpleUser),
             };
 
             foreach (var user in defaultUsers)
             {
-                if (!CheckNif(user))
+                if (!_userRepository.CheckNif(user))
                 {
                     _adminRepository.AddUser(user);
                 }
             }
         }
 
-        public bool CheckNif(User user)
-        {
-            return _adminRepository.GetAllUsers().Any(u => u.NIF == user.NIF);
-        }
-
-        
-
-       
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IModels\ISimpleUser.cs" />
     <Compile Include="Interfaces\IModels\IUser.cs" />
     <Compile Include="Interfaces\IRepositories\IAdminRepository.cs" />
+    <Compile Include="Interfaces\IRepositories\IPowerUserRepository.cs" />
     <Compile Include="Interfaces\IRepositories\IUserRepository.cs" />
     <Compile Include="Interfaces\IServices\IAdminService.cs" />
     <Compile Include="Interfaces\IServices\IAppService.cs" />

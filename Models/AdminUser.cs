@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
 {
-    internal class AdminUser : User
+    public class AdminUser : User, IAdminUser
     {
-        public override EnumUserType UserType { get; set; }
+        public override EnumUserProfile userProfile { get; set; }
 
         public AdminUser() : base() { }
 
-        public AdminUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserType userType) : base(name, lastName, nif, email, userName, password, userType){ }
+        public AdminUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserProfile userProfile) : base(name, lastName, nif, email, userName, password, userProfile){ }
+
     }
 }

@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels
 {
-    internal interface IAdminUser : IUser
+    public interface IAdminUser : IUser
     {
-        User CreateUser();
-        void ChangeUser();
-        IEnumerable<User> GetUsersByName(string name);
-        User GetUserById(int id);
-        void ListAllUsers();
+        // Inherits IUser properties and was made for future add of different admin properties;
     }
 }

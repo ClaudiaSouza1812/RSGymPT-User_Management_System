@@ -14,35 +14,33 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         void RunLoginMenu();
         Dictionary<string, string> ShowLoginMenu();
         int GetUserChoice(string chosenMenu);
+        void ShowMenu(string menu);
+        void ShowMenuByuserProfile();
 
         string ValidateLoginMenu(Dictionary<string, string> loginMenu, int key);
-        (int, string) ValidateMenu(Dictionary<int, string> mainMenu, int menuKey);
-
         void ShowLogo(string status);
-        void ShowMenu(string menu);
-        void ShowMainMenu();
-        Dictionary<int, string> ShowAdminMainMenu();
-        Dictionary<int, string> ShowAdminChangeMenu(User user);
-        Dictionary<int, string> ShowPowerUserMainMenu();
-        Dictionary<int, string> ShowSimpleUserMainMenu();
         void ShowLogoMessage(string status);
-
+        void RunMainMenu();
         void RunAdminMainMenu();
+        (int, string) ValidateMenu(Dictionary<int, string> mainMenu, int menuKey);
+        Dictionary<int, string> ShowAdminMainMenu();
         void RunAdminSubmenu(string menuAction);
-        void RunAdminChangeMenu(User user);
-        void RunAdminChangeSubmenu(string menuAction, User user);
+        void RunCreateSubmenu();
+        void RunChangeSubmenu();
         void RunSearchMenu();
+        Dictionary<int, string> ShowSearchMenu();
         void RunSearchSubmenu(string menuAction);
-
         void SearchById();
         void SearchByName();
+        void RunListSubmenu();
 
-        // main menus
-        void RunMainMenu();
-        /*
-        void RunAdminMainMenu();
+        void RunAdminChangeMenu(User user);
+        Dictionary<int, string> ShowAdminChangeMenu(User user);
+        void RunAdminChangeSubmenu(string menuAction, User user);
         void RunPowerUserMainMenu();
+        Dictionary<int, string> ShowPowerUserMainMenu();
         void RunSimpleUserMainMenu();
-        */
+        Dictionary<int, string> ShowSimpleUserMainMenu();
+        
     }
 }

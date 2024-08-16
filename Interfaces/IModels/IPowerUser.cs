@@ -10,7 +10,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels
 {
     internal interface IPowerUser : IUser
     {
-        IEnumerable<User> GetUsersByName(string name);
-        void ListAllUsers();
+        // Inherits IUser properties and was made for future add of different power user properties;
     }
 }

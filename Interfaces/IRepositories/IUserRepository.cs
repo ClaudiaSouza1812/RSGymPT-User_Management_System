@@ -13,7 +13,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories
 
         bool CheckUserName(string userName);
         User ValidateUser(string userName, string password);
-        List<User> GetAllUsers();
+        bool CheckNif(User user);
+        void ListUser(string name);
 
         #endregion
     }

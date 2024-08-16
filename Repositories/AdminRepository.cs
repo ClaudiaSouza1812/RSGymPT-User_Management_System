@@ -10,10 +10,9 @@ using System.Xml.Linq;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
 {
-    public class AdminRepository : IAdminRepository
+    public class AdminRepository : AdminUser, IAdminRepository 
     {
-        public readonly List<User> _users;
-
+        private readonly List<User> _users;
         public AdminRepository()
         {
             _users = new List<User>();
@@ -50,24 +49,14 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
                     userToUpdate.Password = newValue;
                     break;
                 case "Perfil":
-                    userToUpdate.UserType = Enum.TryParse(newValue, true, out EnumUserType isEnum) ? isEnum : userToUpdate.UserType;
+                    userToUpdate.userProfile = Enum.TryParse(newValue, true, out EnumUserProfile isEnum) ? isEnum : userToUpdate.userProfile;
                     break;
             }
         }
-
-        //HERE***
-
-
-
-
 
         public List<User> GetUsersByName(string name)
         {
             return _users.Where(u => u.Name.ToLower() == name.ToLower()).ToList();
         }
-
-        
-
-        
     }
 }

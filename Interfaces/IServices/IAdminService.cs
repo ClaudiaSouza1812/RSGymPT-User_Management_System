@@ -9,35 +9,35 @@ using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
 {
-    public interface IAdminService
+    public interface IAdminService 
     {
         User CreateUser();
-        void ChangeUser(User user, string property);
-        void ListAllUsers();
-        User GetUserToChange();
-        int AskUserId(string menu);
+        string DefineFirstName(string menu);
+        string DefineLastName(string menu);
         string AskUserName(string menu);
         string AskUserLastName(string menu);
-
-        (string, string) DefineFullName(string menu);
-        string DefineNif();
-        string DefineEmail();
-        string DefineUsername();
-        string DefinePassword();
-        EnumUserType DefineUserType();
-
-
         bool CheckName(string name);
-        bool CheckEmail(string email);
-        bool CheckUsername(string userName);
-        bool CheckPassword(string password);
-        (bool, int) CheckInt(string id);
+        string DefineNif();
         (bool, User) CheckNif(string nif);
-
-        bool KeepGoing();
+        string DefineEmail();
+        bool CheckEmail(string email);
+        string DefineUsername();
+        bool CheckUsername(string userName);
+        string DefinePassword();
+        bool CheckPassword(string password);
+        EnumUserProfile DefineProfile();
+        User GetUserToChange();
+        int AskUserId(string menu);
+        (bool, int) CheckInt(string id);
+        void ChangeUser(User user, string property);
+        void ChangeEmail(User user, string property);
+        void ChangeUsername(User user, string property);
+        void ChangePassword(User user, string property);
+        void ChangeProfile(User user, string property);
         void ListUserById(User user);
         void ListUsers(List<User> users);
         void ListUserToChange(User user);
-
+        void ListAllUsers();
+        bool KeepGoing();
     }
 }

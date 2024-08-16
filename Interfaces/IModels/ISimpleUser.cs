@@ -9,6 +9,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels
 {
     internal interface ISimpleUser : IUser
     {
-        void ListAllUsers();
+        // Inherits IUser properties and was made for future add of different simple user properties;
     }
 }

@@ -9,7 +9,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
     public class RSGymUtility 
     {
 
-        internal static string CurrentUser { get; set; } = AppService.UpdateScreenUserType();
+        internal static string CurrentUser { get; set; } = AppService.UpdateScreenuserProfile();
 
 
         // Method to ensure that characters from any language, including special characters, can be correctly displayed in the console.
@@ -23,7 +23,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
         // Method to show a stylish title
         public static void WriteTitle(string title, string beginTitle = "", string endTitle = "")
         {
-            CurrentUser = AppService.UpdateScreenUserType();
+            CurrentUser = AppService.UpdateScreenuserProfile();
             string formattedTitle = $"{title} - {CurrentUser}";
 
             WriteColor();

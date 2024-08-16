@@ -32,14 +32,16 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             return user;
         }
 
-        //HERE***
+        public bool CheckNif(User user)
+        {
+            return _adminRepository.GetAllUsers().Any(u => u.NIF == user.NIF);
+        }
+
         public void ListUser(string name)
         {
             Console.Clear();
 
             RSGymUtility.WriteTitle("Lista de Utilizadores", "\n", "\n\n");
-
-            
 
             if (_adminRepository.GetAllUsers().Any())
             {
@@ -53,16 +55,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
                 RSGymUtility.WriteMessage($"Nenhum utilizador '{name}' encontrado.");
             }
 
-            
             RSGymUtility.PauseConsole();
         }
-
-        public List<User> GetAllUsers()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
     }
 }

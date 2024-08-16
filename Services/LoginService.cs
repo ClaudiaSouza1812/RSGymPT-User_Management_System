@@ -14,8 +14,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
     public class LoginService : ILoginService
     {
 
-        public readonly IUserRepository _userRepository;
-        public readonly IEncryptPassword _encryptPassword;
+        private readonly IUserRepository _userRepository;
+        private readonly IEncryptPassword _encryptPassword;
 
         public LoginService(IUserRepository userRepository, IEncryptPassword encryptPassword)
         { 

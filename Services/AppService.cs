@@ -14,13 +14,19 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     public class AppService : IAppService
     {
-        public static User _currentUser;
+        #region Fields
+        // Dependency injection
+        private static User _currentUser;
         private User user;
-        public readonly ILoginService _loginService;
-        public readonly IUserService _userService;
-        public readonly IAdminService _adminService;
-        public readonly IAdminRepository _adminRepository;
+        private readonly ILoginService _loginService;
+        private readonly IUserService _userService;
+        private readonly IAdminService _adminService;
+        private readonly IAdminRepository _adminRepository;
+        // Set and keep track of the current user
+        static string currentUser = UpdateScreenuserProfile();
+        #endregion
 
+        #region Constructors
         public AppService() { }
 
         public AppService(ILoginService loginService, IUserService userService, IAdminService adminService, IAdminRepository adminRepository)
@@ -30,13 +36,13 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             _adminService = adminService;
             _adminRepository = adminRepository;
         }
-
-        static string currentUser = UpdateScreenUserType();
+        #endregion
 
         public void RunRSGymProgram()
         {
             RunLoginMenu();
         }
+
 
         public void RunLoginMenu()
         {
@@ -123,40 +129,59 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return menuNumber;
         }
 
+        public static string UpdateScreenuserProfile()
+        {
+            if (_currentUser == null)
+            {
+                return currentUser = "Convidado";
+            }
+            else
+            {
+                return currentUser = _currentUser.userProfile.ToString();
+            }
+
+        }
+
         // Show the chosen menu
         public void ShowMenu(string menu)
         {
-            if (menu == "login")
+            switch (menu)
             {
-                ShowLoginMenu();
+                case "login":
+                    ShowLoginMenu();
+                    break;
+                case "main":
+                    ShowMenuByuserProfile();
+                    break;
+                case "change":
+                    ShowAdminChangeMenu(user);
+                    break;
+                case "search":
+                    ShowSearchMenu();
+                    break;
+                default:
+                    break;
             }
-            else if (menu == "main")
-            {
-                if (_currentUser.UserType == EnumUserType.Admin)
-                {
-                    ShowAdminMainMenu();
-                }
-                else if (_currentUser.UserType == EnumUserType.PowerUser)
-                {
-                    ShowPowerUserMainMenu();
-                }
-                else if (_currentUser.UserType == EnumUserType.SimpleUser)
-                {
-                    ShowSimpleUserMainMenu();
-                }
-                else
-                {
-                    RunLoginMenu();
-                }
+        }
 
-            }
-            else if (menu == "change")
+        public void ShowMenuByuserProfile()
+        {
+            switch (_currentUser.userProfile)
             {
-                ShowAdminChangeMenu(user);
-            }
-            else if (menu == "search")
-            {
-                ShowAdminSearchMenu();
+                case EnumUserProfile.Admin:
+                    ShowAdminMainMenu();
+                    break;
+                case EnumUserProfile.PowerUser:
+                    ShowPowerUserMainMenu();
+                    break;
+                case EnumUserProfile.SimpleUser:
+                    ShowSimpleUserMainMenu();
+                    break;
+                case EnumUserProfile.Convidado:
+                    RunLoginMenu();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -207,30 +232,17 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 RSGymUtility.WriteMessage($"{item.PadLeft(23 - 15 + 30, ' ')}\n");
             }
             RSGymUtility.WriteTitle("RSGymPT APP", "\n", "\n\n");
-            UpdateScreenUserType();
+            UpdateScreenuserProfile();
             ShowLogoMessage(status);
 
             Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public static string UpdateScreenUserType()
-        {
-            if (_currentUser == null)
-            {
-                return currentUser = "Convidado";
-            }
-            else
-            {
-                return currentUser = _currentUser.UserType.ToString();
-            }
-
         }
 
         // Show RSGymPT logo message
         public void ShowLogoMessage(string status)
         {
             string message01, message02;
-            UpdateScreenUserType();
+            UpdateScreenuserProfile();
 
             if (_currentUser != null)
             {
@@ -260,15 +272,15 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public void RunMainMenu()
         {
-            switch (_currentUser.UserType)
+            switch (_currentUser.userProfile)
             {
-                case EnumUserType.Admin:
+                case EnumUserProfile.Admin:
                     RunAdminMainMenu();
                     break;
-                case EnumUserType.PowerUser:
+                case EnumUserProfile.PowerUser:
                     RunPowerUserMainMenu();
                     break;
-                case EnumUserType.SimpleUser:
+                case EnumUserProfile.SimpleUser:
                     RunSimpleUserMainMenu();
                     break;
             }
@@ -383,7 +395,19 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             } while (menuAction.Item2 != "Terminar");
         }
 
-        
+        // Validate the main menu
+        public (int, string) ValidateMenu(Dictionary<int, string> chosenMenu, int menuKey)
+        {
+            foreach (KeyValuePair<int, string> menu in chosenMenu)
+            {
+                if (menu.Key == menuKey)
+                {
+                    return (menu.Key, menu.Value);
+                }
+            }
+
+            return (-1, string.Empty);
+        }
 
         public Dictionary<int, string> ShowAdminMainMenu()
         {
@@ -414,68 +438,68 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return mainMenu;
         }
 
-        // Validate the main menu
-        public (int, string) ValidateMenu(Dictionary<int, string> chosenMenu, int menuKey)
-        {
-            foreach (KeyValuePair<int, string> menu in chosenMenu)
-            {
-                if (menu.Key == menuKey)
-                {
-                    return (menu.Key, menu.Value);
-                }
-            }
-
-            return (-1, string.Empty);
-        }
-
+        
         // Method to run the admin submenu
         public void RunAdminSubmenu(string menuAction)
         {
             switch (menuAction)
             {
                 case "Registar":
-                    
-                    user = _adminService.CreateUser();
-                    if (user != null)
-                    {
-                        _adminRepository.AddUser(user);
-                        _adminService.ListUserById(user);
-                        RSGymUtility.WriteMessage("Utilizador criado com sucesso.", "\n", "\n");
-                        RSGymUtility.PauseConsole();
-                        RunAdminMainMenu();
-                    }
-                    else
-                    {
-                        RSGymUtility.WriteMessage("Nenhum utilizador criado.", "\n", "\n");
-                        RSGymUtility.PauseConsole();
-                        RunAdminMainMenu();
-                    }
-
+                    RunCreateSubmenu();
                     break;
                 case "Alterar":
-                    user = _adminService.GetUserToChange();
-                    if (user != null)
-                    {
-                        RunAdminChangeMenu(user);
-                    }
-                    else
-                    {
-                        RunAdminMainMenu();
-                    }
+                    RunChangeSubmenu();
                     break;
                 case "Pesquisar":
                     RunSearchMenu();
                     RunAdminMainMenu();
                     break;
                 case "Listar":
-                    _adminService.ListAllUsers();
-                    RSGymUtility.PauseConsole();
+                    RunListSubmenu();
                     RunAdminMainMenu();
                     break;
                 case "Terminar":
                     ShowLogo("end");
                     break;
             }
+        }
+
+        public void RunCreateSubmenu()
+        {
+            user = _adminService.CreateUser();
+            if (user != null)
+            {
+                _adminRepository.AddUser(user);
+                _adminService.ListUserById(user);
+                RSGymUtility.WriteMessage("Utilizador criado com sucesso.", "\n", "\n");
+                RSGymUtility.PauseConsole();
+                RunAdminMainMenu();
+            }
+            else
+            {
+                RSGymUtility.WriteMessage("Nenhum utilizador criado.", "\n", "\n");
+                RSGymUtility.PauseConsole();
+                RunAdminMainMenu();
+            }
+        }
+
+        public void RunChangeSubmenu()
+        {
+            user = _adminService.GetUserToChange();
+            if (user != null)
+            {
+                RunAdminChangeMenu(user);
+            }
+            else
+            {
+                RunAdminMainMenu();
+            }
+        }
+
+        public void RunListSubmenu()
+        {
+            _adminService.ListAllUsers();
+            RSGymUtility.PauseConsole();
         }
 
         public void RunAdminChangeMenu(User user)
@@ -503,9 +527,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
             } while (menuAction.Item2 != "Sair");
 
-
             RunAdminMainMenu();
-
         }
 
         // Method to run the order submenu
@@ -517,30 +539,16 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         //HERE***
 
 
-
-
-
-
-
-        
-
-        
-
-        
-
-        
-
         public void RunSearchMenu()
         {
             (int, string) menuAction;
             do
             {
                 // Show the admin search menu
-                Dictionary<int, string> adminSearchMenu = ShowAdminSearchMenu();
+                Dictionary<int, string> adminSearchMenu = ShowSearchMenu();
 
                 int menuKey;
                 
-
                 // Run the main menu
 
                 menuKey = GetUserChoice("search");
@@ -553,11 +561,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 else
                 {
                     RunSearchSubmenu(menuAction.Item2);
-                    
                 }
                 
             } while (menuAction.Item2 != "Sair");
-
         }
 
         // Method to run the order submenu
@@ -573,7 +579,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
         }
 
-        
         public void SearchById()
         {
             string menu = "Pesquisa";
@@ -630,24 +635,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             } while (_adminService.KeepGoing());
         }
 
-        
-        // Function to show and return the main menu
-        public void ShowMainMenu()
-        {
-            switch (_currentUser.UserType)
-            {
-                case EnumUserType.Admin:
-                    ShowAdminMainMenu();
-                    break;
-                case EnumUserType.PowerUser:
-                    ShowPowerUserMainMenu();
-                    break;
-                case EnumUserType.SimpleUser:
-                    ShowSimpleUserMainMenu();
-                    break;
-            }
-        }
-
         public Dictionary<int, string> ShowSimpleUserMainMenu()
         {
             Dictionary<int, string> mainMenu;
@@ -701,8 +688,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return mainMenu;
         }
 
-        
-
         public Dictionary<int, string> ShowAdminChangeMenu(User user)
         {
             Console.Clear();
@@ -731,7 +716,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return changeMenu;
         }
 
-        public Dictionary<int, string> ShowAdminSearchMenu()
+        public Dictionary<int, string> ShowSearchMenu()
         {
             Console.Clear();
 
@@ -752,5 +737,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
             return searchMenu;
         }
+
     }
 }
