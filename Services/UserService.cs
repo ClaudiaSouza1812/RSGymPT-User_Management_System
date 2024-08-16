@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
-    internal class UserService : IUserService
+    public class UserService : IUserService
     {
-
         private readonly IUserRepository _userRepository;
         private readonly IEncryptPassword _encryptPassword;
         private readonly IAdminRepository _adminRepository;
@@ -26,81 +25,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             _adminRepository = adminRepository;
         }
 
-        public User LogInUser()
-        {
-            RSGymUtility.WriteLoginTitle("Login", "", "\n\n");
-
-            string username = AskUsername();
-
-            if (!_userRepository.CheckUserName(username))
-            {
-                RSGymUtility.WriteMessage("Nome de utilizador inválido ou inexistente.", "", "\n");
-
-                RSGymUtility.PauseConsole();
-                return null;
-            }
-
-            string password = AskUserPassword();
-
-            User user = ValidateUser(username, _encryptPassword.EncryptPassword(password));
-
-            if (user == null)
-            {
-                RSGymUtility.WriteMessage("Palavra-passe inválida.", "\n", "\n");
-
-                RSGymUtility.PauseConsole();
-                return user;
-            }
-
-            return user;
-        }
-
-        
-        public string AskUsername()
-        {
-            string pad = "";
-            string message = "Insira seu nome de utilizador: ";
-            RSGymUtility.WriteMessage($"{message}", "", "");
-
-            string userName = Console.ReadLine().ToLower();
-            return userName;
-        }
-
-        public string AskUserPassword()
-        {
-            string pad = "";
-            string message = "Insira sua palavra-passe: ";
-            RSGymUtility.WriteMessage($"{message}", "\n", "");
-
-            // Hide the password
-            StringBuilder password = new StringBuilder();
-            // Get the key pressed
-            ConsoleKeyInfo key;
-
-            do
-            {
-                // Get the key pressed without showing it
-                key = Console.ReadKey(true);
-
-                // If the key pressed is not Enter
-                if (key.Key != ConsoleKey.Enter)
-                {
-                    // Append the key pressed to the password
-                    password.Append(key.KeyChar);
-                    // Show a * in the console
-                    RSGymUtility.WriteMessage("*");
-                }
-
-            } while (key.Key != ConsoleKey.Enter);
-
-            return password.ToString();
-        }
-
-        public User ValidateUser(string userName, string password)
-        {
-            User user = _adminRepository.GetAllUsers().FirstOrDefault(u => u.Username == userName && u.Password == password);
-            return user;
-        }
 
         //HERE***
 

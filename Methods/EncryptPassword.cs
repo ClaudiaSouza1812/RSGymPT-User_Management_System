@@ -9,7 +9,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Methods
 {
-    internal class EncryptPassword : IEncryptPassword
+    public class EncryptPassword : IEncryptPassword
     {
         string IEncryptPassword.EncryptPassword(string password)
         {

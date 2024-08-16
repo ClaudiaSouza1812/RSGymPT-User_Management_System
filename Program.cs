@@ -29,13 +29,14 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
             IAdminRepository adminRepository = new AdminRepository();
             IUserRepository userRepository = new UserRepository(adminRepository);
             IEncryptPassword encryptPassword = new EncryptPassword();
-            
+
+            ILoginService loginService = new LoginService(userRepository, encryptPassword);
             IUserService userService = new UserService(userRepository, adminRepository, encryptPassword);
             userService.CreateDefaultUsers();
 
             IAdminService adminService = new AdminService(adminRepository);
 
-            AppService appService = new AppService(userService, adminService, adminRepository);
+            AppService appService = new AppService(loginService, userService, adminService, adminRepository);
 
             appService.RunRSGymProgram();
 

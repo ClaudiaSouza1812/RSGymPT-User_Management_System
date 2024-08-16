@@ -16,14 +16,16 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
     {
         public static User _currentUser;
         private User user;
+        public readonly ILoginService _loginService;
         public readonly IUserService _userService;
         public readonly IAdminService _adminService;
         public readonly IAdminRepository _adminRepository;
 
         public AppService() { }
 
-        public AppService(IUserService userService, IAdminService adminService, IAdminRepository adminRepository)
+        public AppService(ILoginService loginService, IUserService userService, IAdminService adminService, IAdminRepository adminRepository)
         {
+            _loginService = loginService;
             _userService = userService;
             _adminService = adminService;
             _adminRepository = adminRepository;
@@ -56,7 +58,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 if (loginAction == "Login")
                 {
-                    _currentUser = _userService.LogInUser();
+                    _currentUser = _loginService.GetLoginCredentials();
                 }
 
             } while (loginAction != "Sair" && _currentUser == null);

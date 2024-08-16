@@ -15,7 +15,7 @@ using System.Xml.Linq;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
-    internal class AdminService : IAdminService
+    public class AdminService : IAdminService
     {
         public readonly IAdminRepository _adminRepository;
 

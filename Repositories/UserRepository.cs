@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
 {
-    internal class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly IAdminRepository _adminRepository;
 
@@ -24,6 +24,12 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
         public bool CheckUserName(string userName)
         {
             return _adminRepository.GetAllUsers().Any(u => u.Username == userName);
+        }
+
+        public User ValidateUser(string userName, string password)
+        {
+            User user = _adminRepository.GetAllUsers().FirstOrDefault(u => u.Username == userName && u.Password == password);
+            return user;
         }
 
         //HERE***

@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
 {
-    internal class AdminRepository : IAdminRepository
+    public class AdminRepository : IAdminRepository
     {
         public readonly List<User> _users;
 
