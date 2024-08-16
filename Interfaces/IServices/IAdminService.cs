@@ -15,10 +15,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
         void ChangeUser(User user, string property);
         void ListAllUsers();
         User GetUserToChange();
-        int AskUserId();
-        string AskUserName();
+        int AskUserId(string menu);
+        string AskUserName(string menu);
+        string AskUserLastName(string menu);
 
-        (string, string) DefineFullName();
+        (string, string) DefineFullName(string menu);
         string DefineNif();
         string DefineEmail();
         string DefineUsername();

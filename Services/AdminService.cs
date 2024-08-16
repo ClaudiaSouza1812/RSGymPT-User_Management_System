@@ -27,9 +27,10 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public User CreateUser()
         {
+            string menu = "Definição";
             string name, lastName;
 
-            (name, lastName) = DefineFullName();
+            (name, lastName) = DefineFullName(menu);
 
             if (string.IsNullOrEmpty(name))
             {
@@ -80,7 +81,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return user;
         }
 
-        public (string, string) DefineFullName()
+        public (string, string) DefineFullName(string menu)
         {
             string name, lastName;
             do
@@ -89,19 +90,19 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
-                name = AskUserName();
+                name = AskUserName(menu);
 
                 if (!CheckName(name))
                 {
-                    RSGymUtility.WriteMessage("Nome vazio, com espaço ou com caracteres inválidos", "", "\n");
+                    RSGymUtility.WriteMessage("Nome vazio, com espaço ou com caracteres inválidos.", "", "\n");
                 }
                 else
                 {
-                    lastName = AskUserLastName();
+                    lastName = AskUserLastName(menu);
 
                     if (!CheckName(lastName))
                     {
-                        RSGymUtility.WriteMessage("Nome vazio, com espaço ou com caracteres inválidos", "", "\n");
+                        RSGymUtility.WriteMessage("Nome vazio, com espaço ou com caracteres inválidos.", "", "\n");
                     }
                     else
                     {
@@ -113,21 +114,25 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return (string.Empty, string.Empty);
         }
 
-        public string AskUserName()
+        public string AskUserName(string menu)
         {
             Console.Clear();
 
-            RSGymUtility.WriteTitle("RSGymPT Menu - Definição", "", "\n\n");
+            RSGymUtility.WriteTitle($"RSGymPT Menu - {menu}", "", "\n\n");
 
-            RSGymUtility.WriteMessage("Insira o primeiro nome do utilizador: ", "", "\n");
+            RSGymUtility.WriteMessage("Insira o primeiro nome do utilizador: ", "\n", "");
 
             string name = Console.ReadLine().ToLower();
             return name;
         }
 
-        public string AskUserLastName()
+        public string AskUserLastName(string menu)
         {
-            RSGymUtility.WriteMessage("Insira o sobrenome do utilizador: ", "", "\n");
+            Console.Clear();
+
+            RSGymUtility.WriteTitle($"RSGymPT Menu - {menu}", "", "\n\n");
+
+            RSGymUtility.WriteMessage("Insira o sobrenome do utilizador: ", "\n", "");
 
             string lastName = Console.ReadLine().ToLower();
             return lastName;
@@ -157,7 +162,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
-                RSGymUtility.WriteMessage("Insira o NIF do utilizador com 9 números: ", "", "\n");
+                RSGymUtility.WriteMessage("Insira o NIF do utilizador com 9 números: ", "\n", "");
 
                 string answer = Console.ReadLine();
 
@@ -212,7 +217,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteMessage("Exemplo de email válido: teste@teste.com", "", "\n");
 
-                RSGymUtility.WriteMessage("Insira o email do utilizador: ", "\n", "\n");
+                RSGymUtility.WriteMessage("Insira o email do utilizador: ", "\n", "");
 
                 email = Console.ReadLine().ToLower();
 
@@ -255,9 +260,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
-                RSGymUtility.WriteMessage("Defina o username com 6 caracteres e sem espaços.", "\n", "");
+                RSGymUtility.WriteMessage("Defina o username com 6 caracteres e sem espaços.", "", "\n");
 
-                RSGymUtility.WriteMessage("Username: ", "\n", "\n");
+                RSGymUtility.WriteMessage("Username: ", "\n", "");
 
                 userName = Console.ReadLine().ToLower();
 
@@ -293,9 +298,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteTitle($"RSGymPT Menu - Definição", "", "\n\n");
 
-                RSGymUtility.WriteMessage("Defina a password com 6 caracteres e sem espaços.", "\n", "\n");
+                RSGymUtility.WriteMessage("Defina a password com 6 caracteres e sem espaços.", "", "\n");
 
-                RSGymUtility.WriteMessage("Password: ", "", "\n");
+                RSGymUtility.WriteMessage("Password: ", "\n", "");
 
                 password = Console.ReadLine().ToLower();
 
@@ -327,7 +332,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 ListAllUsers();
 
-                RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n", "\n");
+                RSGymUtility.WriteMessage("Digite o Id do utilizador que deseja alterar: ", "\n", "");
                 string answer = Console.ReadLine();
 
                 if (!string.IsNullOrEmpty(answer))
@@ -345,7 +350,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     return user;
                 }
 
-                RSGymUtility.WriteMessage("Usuário Inexistente", "", "\n");
+                RSGymUtility.WriteMessage("Usuário Inexistente.", "", "\n");
 
             } while (KeepGoing());
 
@@ -368,16 +373,16 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         // Admin service helper function to ask and return the user Id
 
-        public int AskUserId()
+        public int AskUserId(string menu)
         {
             int userId = 0;
             bool isNumber;
 
             Console.Clear();
 
-            RSGymUtility.WriteTitle("RSGymPT Menu - Utilizador Id", "", "\n\n");
+            RSGymUtility.WriteTitle($"RSGymPT Menu - {menu}", "", "\n\n");
 
-            RSGymUtility.WriteMessage("Digite o Id do utilizador: ", "", "\n");
+            RSGymUtility.WriteMessage("Digite o Id do utilizador: ", "\n", "");
             string answer = Console.ReadLine();
 
             if (!string.IsNullOrEmpty(answer))
@@ -409,10 +414,12 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     {
                         _adminRepository.UpdateUser(user, property, email);
                         RSGymUtility.WriteMessage("Email alterado com sucesso.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
                     else
                     {
                         RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou email existente.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
                     break;
                 case "Username":
@@ -422,10 +429,12 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     {
                         _adminRepository.UpdateUser(user, property, username);
                         RSGymUtility.WriteMessage("Username alterado com sucesso.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou username existente", "\n", "\n");
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou username existente.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
                     break;
                 case "Password":
@@ -435,10 +444,12 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     {
                         _adminRepository.UpdateUser(user, property, password);
                         RSGymUtility.WriteMessage("Password alterado com sucesso.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou password existente", "\n", "\n");
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou password existente.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
                     break;
                 case "Perfil":
@@ -447,14 +458,14 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                     {
                         _adminRepository.UpdateUser(user, property, userType.ToString());
                         RSGymUtility.WriteMessage("Tipo de usuário alterado com sucesso.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
                     else
                     {
-                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou perfil existente", "\n", "\n");
+                        RSGymUtility.WriteMessage("Nenhum alteração aplicada, campo vazio ou perfil existente.", "\n", "\n");
+                        RSGymUtility.PauseConsole();
                     }
-
                     break;
-
             }
         }
 
@@ -479,7 +490,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 RSGymUtility.WriteMessage("Digite um dos numeros de tipo de usuário acima.", "\n", "\n");
 
-                RSGymUtility.WriteMessage("Numero do usuário: ", "", "\n");
+                RSGymUtility.WriteMessage("Numero do usuário: ", "\n", "");
 
                 string answer = Console.ReadLine();
 
@@ -515,7 +526,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         // Function to ask and return the user choice
         public bool KeepGoing()
         {
-            RSGymUtility.WriteMessage("Continuar? (s/n): ", "\n");
+            RSGymUtility.WriteMessage("Continuar? (s/n): ", "\n", "");
 
             string answer = Console.ReadLine().ToLower();
 
@@ -527,7 +538,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             {
                 return false;
             }
-            return true;
+            return false;
         }
 
         

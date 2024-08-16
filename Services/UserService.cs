@@ -58,7 +58,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
         
         public string AskUsername()
         {
-            RSGymUtility.WriteMessage("Insira seu nome de utilizador: ", "", "\n");
+            string pad = "";
+            string message = "Insira seu nome de utilizador: ";
+            RSGymUtility.WriteMessage($"{message}", "", "");
 
             string userName = Console.ReadLine().ToLower();
             return userName;
@@ -66,7 +68,9 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
         public string AskUserPassword()
         {
-            RSGymUtility.WriteMessage("Insira sua palavra-passe: ", "", "\n");
+            string pad = "";
+            string message = "Insira sua palavra-passe: ";
+            RSGymUtility.WriteMessage($"{message}", "\n", "");
 
             // Hide the password
             StringBuilder password = new StringBuilder();
