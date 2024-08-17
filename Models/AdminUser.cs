@@ -15,6 +15,5 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
         public AdminUser() : base() { }
 
         public AdminUser(string name, string lastName, string nif, string email, string userName, string password, EnumUserProfile userProfile) : base(name, lastName, nif, email, userName, password, userProfile){ }
-
     }
 }

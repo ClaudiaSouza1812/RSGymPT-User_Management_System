@@ -10,10 +10,11 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
 {
     public class User : IUser
     {
-        #region Scalar Properties
-
+        #region Fields
         public static int NextId = 1;
+        #endregion
 
+        #region Scalar Properties
         public int Id { get; private set; }
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -22,7 +23,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public virtual EnumUserProfile UserProfile { get; set; }
-
         #endregion
 
         #region Expression-bodied Properties
@@ -53,7 +53,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models
             Password = password;
             UserProfile = userProfile;
         }
-
         #endregion
     }
 }
