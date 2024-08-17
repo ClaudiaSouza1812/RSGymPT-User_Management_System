@@ -19,8 +19,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
             _adminRepository = adminRepository;
         }
 
-        RSGymUtility rSGymUtility = new RSGymUtility();
-
         public bool CheckUserName(string userName)
         {
             return _adminRepository.GetAllUsers().Any(u => u.Username == userName);
@@ -35,27 +33,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories
         public bool CheckNif(User user)
         {
             return _adminRepository.GetAllUsers().Any(u => u.NIF == user.NIF);
-        }
-
-        public void ListUser(string name)
-        {
-            Console.Clear();
-
-            RSGymUtility.WriteTitle("Lista de Utilizadores", "\n", "\n\n");
-
-            if (_adminRepository.GetAllUsers().Any())
-            {
-                foreach (var user in _adminRepository.GetAllUsers())
-                {
-                    RSGymUtility.WriteMessage($"{user.FullUser}", "\n", "\n");
-                }
-            }
-            else
-            {
-                RSGymUtility.WriteMessage($"Nenhum utilizador '{name}' encontrado.");
-            }
-
-            RSGymUtility.PauseConsole();
         }
     }
 }

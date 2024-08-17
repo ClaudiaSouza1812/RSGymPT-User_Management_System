@@ -1,5 +1,4 @@
 ﻿using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums;
-using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
@@ -7,15 +6,13 @@ using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     public class AppService : IAppService
     {
         #region Fields
-        // Dependency injection
+        // For Dependency injection
         private static User _currentUser;
         private User user;
         private readonly ILoginService _loginService;

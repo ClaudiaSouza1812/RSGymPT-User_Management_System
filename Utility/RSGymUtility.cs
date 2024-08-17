@@ -1,6 +1,4 @@
-﻿using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
-using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices;
-using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
+﻿
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services;
 using System;
 
@@ -8,12 +6,8 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility
 {
     public class RSGymUtility 
     {
-
         internal static string CurrentUser { get; set; } = AppService.UpdateScreenuserProfile();
 
-
-        // Method to ensure that characters from any language, including special characters, can be correctly displayed in the console.
-        // This is particularly useful when working with text that contains characters from languages other than English, as UTF-8 supports a wide range of characters and symbols.
         public static void SetUnicodeConsole()
         {
             // Console.WriteLine("á Á à À ã Ã â Â ç Ç º ª");

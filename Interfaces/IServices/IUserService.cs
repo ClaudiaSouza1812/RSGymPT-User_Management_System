@@ -10,10 +10,7 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices
     public interface IUserService
     {
         #region Methods and Functions
-        
         void CreateDefaultUsers();
-
         #endregion
-
     }
 }

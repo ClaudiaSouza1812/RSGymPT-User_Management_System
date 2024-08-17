@@ -4,16 +4,12 @@ using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 {
     public class LoginService : ILoginService
     {
-
         private readonly IUserRepository _userRepository;
         private readonly IEncryptPassword _encryptPassword;
 
@@ -50,8 +46,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
             return user;
         }
-
-        
 
         public void ShowLoginMessage(User user)
         {

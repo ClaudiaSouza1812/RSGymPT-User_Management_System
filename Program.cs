@@ -1,19 +1,11 @@
 ﻿
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IMethods;
-using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Methods;
-using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services;
 using CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
 {
@@ -21,7 +13,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
     {
         static void Main(string[] args)
         {
-
             // Method to output characters encoded to UTF-8 
 
             RSGymUtility.SetUnicodeConsole();
@@ -41,7 +32,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
             AppService appService = new AppService(loginService, userService, adminService, adminRepository, powerUserService, simpleUserService);
 
             appService.RunRSGymProgram();
-
         }
     }
 }
