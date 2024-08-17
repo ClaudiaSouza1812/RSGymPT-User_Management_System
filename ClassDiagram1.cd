@@ -1,2 +1,220 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Methods.EncryptPassword" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\EncryptPassword.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models.AdminUser">
+    <Position X="1" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AdminUser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models.PowerUser">
+    <Position X="1" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PowerUser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models.SimpleUser">
+    <Position X="5.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SimpleUser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Models.User">
+    <Position X="3.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAIEIAAAQAAAAQAAAQAAAACAAAAAAAAAAo=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Program">
+    <Position X="14.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories.AdminRepository" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAJAAAAAAAAAAAAAAAAAQAAAIAgAAAAAAEAAAA=</HashCode>
+      <FileName>Repositories\AdminRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Repositories.UserRepository" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAAQAAAAIAA=</HashCode>
+      <FileName>Repositories\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services.AdminService" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAEQAggAAAAAACGiCAAYQAABQCEAAxkICAIgA=</HashCode>
+      <FileName>Services\AdminService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services.AppService" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CDRAIBhAADoAAAiQgEAA1AAAQBAQECAQAAAECECBMQg=</HashCode>
+      <FileName>Services\AppService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services.LoginService" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQgAAgAACAAAAAAAAAABAAAAAIAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Services\LoginService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services.PowerUserService" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Services\PowerUserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services.SimpleUserService" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Services\SimpleUserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services.UserService" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAIAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Utility.RSGymUtility">
+    <Position X="16.5" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAQAIAAAAAAAQAAAAAAIAEAAAIAAAAAAAAIAAA=</HashCode>
+      <FileName>Utility\RSGymUtility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IMethods.IEncryptPassword">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMethods\IEncryptPassword.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels.IAdminUser">
+    <Position X="1" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IModels\IAdminUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels.IPowerUser">
+    <Position X="1" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IModels\IPowerUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels.ISimpleUser">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IModels\ISimpleUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IModels.IUser">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAQAAAAQAAAQAAAACAAAAAAAAAAo=</HashCode>
+      <FileName>Interfaces\IModels\IUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories.IAdminRepository">
+    <Position X="1" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAJAAAAAAAAAAAAAAAAAQAAAAAgAAAAAAEAAAA=</HashCode>
+      <FileName>Interfaces\IRepositories\IAdminRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IRepositories.IUserRepository">
+    <Position X="7.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAAQAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRepositories\IUserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices.IAdminService">
+    <Position X="3" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAEQAggAAAAAACGiCAAYQAABQCEAAxkICAAgA=</HashCode>
+      <FileName>Interfaces\IServices\IAdminService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices.IAppService">
+    <Position X="5" Y="7.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CDBAIAhAADoAAAgQAAAA1AAAQBAQEAAQAAAECACBEAg=</HashCode>
+      <FileName>Interfaces\IServices\IAppService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices.ILoginService">
+    <Position X="1" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IServices\ILoginService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices.IPowerUserService">
+    <Position X="7.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IServices\IPowerUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices.ISimpleUserService">
+    <Position X="7.5" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IServices\ISimpleUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Interfaces.IServices.IUserService">
+    <Position X="1" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IServices\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Enums.EnumUserProfile">
+    <Position X="1" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAAAAAAAAAAAAAAQAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\EnumUserType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
