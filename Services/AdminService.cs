@@ -424,8 +424,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return null;
         }
 
-        // Admin service helper function to ask and return the user Id
-
         public int AskUserId(string menu)
         {
             int userId = 0;

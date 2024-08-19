@@ -56,8 +56,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             }
         }
 
-
-
         public string AskUsername()
         {
             string message = "Insira seu nome de utilizador: ";

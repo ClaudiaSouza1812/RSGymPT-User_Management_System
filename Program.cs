@@ -13,7 +13,14 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza
     {
         static void Main(string[] args)
         {
-            // Method to output characters encoded to UTF-8 
+            /*
+            Infos to login
+
+            admin: melmag, 123456
+            poweruser: paumag, 123456
+            simpleuser: clasou, 123456
+
+             */
 
             RSGymUtility.SetUnicodeConsole();
 

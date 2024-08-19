@@ -336,7 +336,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
 
                 int menuKey;
 
-
                 // Run the main menu
 
                 menuKey = GetUserChoice("main");
@@ -441,7 +440,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             return mainMenu;
         }
 
-        
         // Method to run the admin submenu
         public void RunAdminSubmenu(string menuAction)
         {
@@ -515,7 +513,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
                 
                 int menuKey;
                 
-
                 // Run the main menu
 
                 menuKey = GetUserChoice("change");
@@ -539,15 +536,12 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             _adminService.ChangeUser(user, menuAction);
         }
 
-        //HERE***
-
-
         public void RunSearchMenu()
         {
             (int, string) menuAction;
             do
             {
-                // Show the admin search menu
+                // Show the search menu
                 Dictionary<int, string> adminSearchMenu = ShowSearchMenu();
 
                 int menuKey;
@@ -569,7 +563,6 @@ namespace CA_RS11_OOP_P2_2_M02_ClaudiaSouza.Services
             } while (menuAction.Item2 != "Sair");
         }
 
-        // Method to run the order submenu
         public void RunSearchSubmenu(string menuAction)
         {
             if (menuAction == "Id")
